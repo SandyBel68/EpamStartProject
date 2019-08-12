@@ -9,7 +9,7 @@ public interface RoomDAO {
 
     void addRoom(Room room);
 
-    List<Room> getRoomsByFloor(Integer idFloor);
+    List<Room> getRoomsByFloor(Integer idFloor, Integer idBuilding);
 
-    void removeRoomById(Integer idRoom);
+    void removeRoomById(Integer idRoom, Integer idBuilding);
 }

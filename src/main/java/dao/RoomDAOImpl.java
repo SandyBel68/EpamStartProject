@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoomDAOImpl implements RoomDAO {
-    static final String addRoomQuery = "INSERT INTO room (idroom, idfloor, x1, y1, x2, y2) VALUES (?,?,?,?,?,?)";
+    static final String addRoomQuery = "INSERT INTO room (idroom, idbuilding, idfloor, x1, y1, x2, y2) VALUES (?,?,?,?,?,?,?)";
     static final String getAllRoomsQuery = "SELECT * FROM room";
-    static final String getRoomsByFloor = "SELECT * FROM room WHERE idfloor = ? ";
-    static final String removeRoomByIdQuery = "DELETE FROM room WHERE idroom = ?";
+    static final String getRoomsByFloor = "SELECT * FROM room WHERE idfloor = ? AND idbuilding = ?";
+    static final String removeRoomByIdQuery = "DELETE FROM room WHERE idroom = ? AND idbuilding = ?";
 
     public static RoomDAOImpl instance;
     public final DataSource DATASOURCE;
@@ -32,6 +32,7 @@ public class RoomDAOImpl implements RoomDAO {
                 instance = new RoomDAOImpl(DataSourceInit.getMsInstance());
             } catch (IOException | PropertyVetoException e) {
 //TODO Logging!
+                System.err.println(e);
             }
         }
         return instance;
@@ -46,6 +47,7 @@ public class RoomDAOImpl implements RoomDAO {
                 while (resultSet.next()) {
                     Room room = new Room(
                             resultSet.getInt("idRoom"),
+                            resultSet.getInt("idBuilding"),
                             resultSet.getInt("idFloor"),
                             resultSet.getString("x1"),
                             resultSet.getString("y1"),
@@ -56,6 +58,7 @@ public class RoomDAOImpl implements RoomDAO {
                 }
             }
         } catch (SQLException e) {
+            System.err.println(e);
             //TODO Logging!
         }
         return allRooms;
@@ -68,28 +71,32 @@ public class RoomDAOImpl implements RoomDAO {
                  PreparedStatement preparedStatement = connection.prepareStatement(addRoomQuery)
             ) {
                 preparedStatement.setInt(1, room.getIdRoom());
-                preparedStatement.setInt(2, room.getIdFloor());
-                preparedStatement.setString(3, room.getX1());
-                preparedStatement.setString(4, room.getY1());
-                preparedStatement.setString(5, room.getX2());
-                preparedStatement.setString(6, room.getY2());
+                preparedStatement.setInt(2, room.getIdBuilding());
+                preparedStatement.setInt(3, room.getIdFloor());
+                preparedStatement.setString(4, room.getX1());
+                preparedStatement.setString(5, room.getY1());
+                preparedStatement.setString(6, room.getX2());
+                preparedStatement.setString(7, room.getY2());
                 preparedStatement.execute();
             } catch (SQLException e) {
+                System.err.println(e);
                 //TODO Logging!
             }
         }
     }
 
     @Override
-    public List<Room> getRoomsByFloor(Integer idFloor) {
+    public List<Room> getRoomsByFloor(Integer idFloor, Integer idBuilding) {
         List<Room> roomsByFloor = new ArrayList<>();
         try (Connection connection = DATASOURCE.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(getRoomsByFloor)) {
             preparedStatement.setInt(1, idFloor);
+            preparedStatement.setInt(2, idBuilding);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     Room room = new Room(
                             resultSet.getInt("idRoom"),
+                            resultSet.getInt("idBuilding"),
                             resultSet.getInt("idFloor"),
                             resultSet.getString("x1"),
                             resultSet.getString("y1"),
@@ -100,20 +107,23 @@ public class RoomDAOImpl implements RoomDAO {
                 }
             }
         } catch (SQLException e) {
+            System.err.println(e);
             //TODO Logging!
         }
         return roomsByFloor;
     }
 
     @Override
-    public void removeRoomById(Integer idRoom) {
+    public void removeRoomById(Integer idRoom, Integer idBuilding) {
         {
             try (Connection connection = DATASOURCE.getConnection();
                  PreparedStatement preparedStatement = connection.prepareStatement(removeRoomByIdQuery)
             ) {
                 preparedStatement.setInt(1, idRoom);
+                preparedStatement.setInt(2, idBuilding);
                 preparedStatement.execute();
             } catch (SQLException e) {
+                System.err.println(e);
                 //TODO Logging!
             }
         }

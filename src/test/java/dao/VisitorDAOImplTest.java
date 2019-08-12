@@ -11,7 +11,7 @@ import java.util.List;
 
 public class VisitorDAOImplTest {
 
-    private static VisitorDAOImpl visitorDAO;
+    private static VisitorDAO visitorDAO;
     private static Visitor semen;
 
     @BeforeAll

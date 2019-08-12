@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MoveTrackerDAOImplTest {
 
-    private static MoveTrackerDAOImpl trackerDAO;
+    private static MoveTrackerDAO trackerDAO;
     private static MoveTracker move1;
 
     @BeforeAll
@@ -19,7 +19,7 @@ public class MoveTrackerDAOImplTest {
         trackerDAO = MoveTrackerDAOImpl.getInstance();
         LocalDateTime start = LocalDateTime.now();
         LocalDateTime finish = LocalDateTime.now().plusMinutes(1);
-        move1 = new MoveTracker(1, 1, 101, start, finish);
+        move1 = new MoveTracker(1, 1, 1, 101, start, finish);
     }
 
     @Test
@@ -29,7 +29,7 @@ public class MoveTrackerDAOImplTest {
 
     @Test
     public void getByRoomIdTest() {
-        List<MoveTracker> byRoom = trackerDAO.getByRoomId(101);
+        List<MoveTracker> byRoom = trackerDAO.getByRoomId(101, 1);
         assertTrue(byRoom.contains(move1));
     }
 

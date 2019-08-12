@@ -30,6 +30,7 @@ public class VisitorDAOImpl implements VisitorDAO {
             try {
                 instance = new VisitorDAOImpl(DataSourceInit.getMsInstance());
             } catch (IOException | PropertyVetoException e) {
+                System.err.println(e);
 //TODO Logging!
             }
         }
@@ -51,6 +52,7 @@ public class VisitorDAOImpl implements VisitorDAO {
                 }
             }
         } catch (SQLException e) {
+            System.err.println(e);
             //TODO Logging!
         }
         return allVisitors;
@@ -66,6 +68,7 @@ public class VisitorDAOImpl implements VisitorDAO {
                 preparedStatement.setString(2, visitor.getVisitorName());
                 preparedStatement.execute();
             } catch (SQLException e) {
+                System.err.println(e);
                 //TODO Logging!
             }
         }
@@ -80,6 +83,7 @@ public class VisitorDAOImpl implements VisitorDAO {
                 preparedStatement.setInt(1, idVisitor);
                 preparedStatement.execute();
             } catch (SQLException e) {
+                System.err.println(e);
                 //TODO Logging!
             }
         }

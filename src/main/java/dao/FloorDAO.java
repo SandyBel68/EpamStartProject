@@ -9,5 +9,5 @@ public interface FloorDAO {
 
     List<Floor> getAllFloors();
 
-    void removeFloorById(Integer idFloor);
+    void removeFloorById(Integer idFloor, Integer idBuilding);
 }

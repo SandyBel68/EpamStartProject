@@ -1,5 +1,9 @@
 package service;
 
-public class SearchForTheVisitor {
+import entities.Room;
 
+public class SearchForTheVisitor {
+    public static Integer getRoomIdWhereVisitorIs(){
+        return null;
+    }
 }

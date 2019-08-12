@@ -19,7 +19,7 @@ public class MoveTrackerDAOImpl implements MoveTrackerDAO {
     static final String getAllTracksByRoom = "SELECT * FROM movetracker where idroom = ? AND idbuilding = ?";
     static final String getAllTracksByVisitor = "SELECT * FROM movetracker where idvisitor = ?";
 
-    public static MoveTrackerDAOImpl instance = null;
+    public static MoveTrackerDAOImpl instance;
     public final DataSource DATASOURCE;
 
     private MoveTrackerDAOImpl(DataSource dataSource) {

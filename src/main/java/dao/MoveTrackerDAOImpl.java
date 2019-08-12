@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoveTrackerDAOImpl implements MoveTrackerDAO {
-    static final String addTrackQuery = "INSERT INTO movetracker (idmove, idvisitor, idroom, timestart, timefinish) VALUES (?,?,?,?,?)";
-    static final String getAllTracksByRoom = "SELECT * FROM movetracker where idroom = ?";
+    static final String addTrackQuery = "INSERT INTO movetracker (idmove, idbuilding, idvisitor, idroom, timestart, timefinish) VALUES (?,?,?,?,?,?)";
+    static final String getAllTracksByRoom = "SELECT * FROM movetracker where idroom = ? AND idbuilding = ?";
     static final String getAllTracksByVisitor = "SELECT * FROM movetracker where idvisitor = ?";
 
     public static MoveTrackerDAOImpl instance = null;
@@ -32,6 +32,7 @@ public class MoveTrackerDAOImpl implements MoveTrackerDAO {
                 instance = new MoveTrackerDAOImpl(DataSourceInit.getMsInstance());
             } catch (IOException | PropertyVetoException e) {
 //TODO Logging!
+                System.err.println(e);
             }
         }
         return instance;
@@ -44,27 +45,31 @@ public class MoveTrackerDAOImpl implements MoveTrackerDAO {
                  PreparedStatement preparedStatement = connection.prepareStatement(addTrackQuery)
             ) {
                 preparedStatement.setInt(1, movement.getIdMove());
-                preparedStatement.setInt(2, movement.getIdVisitor());
-                preparedStatement.setInt(3, movement.getIdRoom());
-                preparedStatement.setTimestamp(4, Timestamp.valueOf(movement.getTimeStart()));
-                preparedStatement.setTimestamp(5, Timestamp.valueOf(movement.getTimeFinish()));
+                preparedStatement.setInt(2, movement.getIdBuilding());
+                preparedStatement.setInt(3, movement.getIdVisitor());
+                preparedStatement.setInt(4, movement.getIdRoom());
+                preparedStatement.setTimestamp(5, Timestamp.valueOf(movement.getTimeStart()));
+                preparedStatement.setTimestamp(6, Timestamp.valueOf(movement.getTimeFinish()));
                 preparedStatement.execute();
             } catch (SQLException e) {
                 //TODO Logging!
+                System.err.println(e);
             }
         }
     }
 
     @Override
-    public List<MoveTracker> getByRoomId(Integer idRoom) {
+    public List<MoveTracker> getByRoomId(Integer idRoom, Integer idBuilding) {
         List<MoveTracker> allByRoom = new ArrayList<>();
         try (Connection connection = DATASOURCE.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(getAllTracksByRoom)) {
             preparedStatement.setInt(1, idRoom);
+            preparedStatement.setInt(2, idBuilding);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     MoveTracker tracker = new MoveTracker(
                             resultSet.getInt("idMove"),
+                            resultSet.getInt("idBuilding"),
                             resultSet.getInt("idVisitor"),
                             resultSet.getInt("idRoom"),
                             resultSet.getTimestamp("timeStart").toLocalDateTime(),
@@ -74,7 +79,8 @@ public class MoveTrackerDAOImpl implements MoveTrackerDAO {
                 }
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            //TODO logging
+            System.err.println(e);
         }
         return allByRoom;
     }
@@ -89,6 +95,7 @@ public class MoveTrackerDAOImpl implements MoveTrackerDAO {
                 while (resultSet.next()) {
                     MoveTracker tracker = new MoveTracker(
                             resultSet.getInt("idmove"),
+                            resultSet.getInt("idBuilding"),
                             resultSet.getInt("idvisitor"),
                             resultSet.getInt("idroom"),
                             resultSet.getTimestamp("timestart").toLocalDateTime(),
@@ -99,6 +106,7 @@ public class MoveTrackerDAOImpl implements MoveTrackerDAO {
             }
         } catch (SQLException e) {
             //TODO logging!
+            System.err.println(e);
         }
         return allByVisitor;
     }

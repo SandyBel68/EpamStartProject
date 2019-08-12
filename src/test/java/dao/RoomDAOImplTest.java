@@ -11,13 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RoomDAOImplTest {
 
-    private static RoomDAOImpl roomDAO;
+    private static RoomDAO roomDAO;
     private static Room room115;
 
     @BeforeAll
     public static void init() {
         roomDAO = RoomDAOImpl.getInstance();
-        room115 = new Room(115, 1, "0", "0", "10", "15");
+        room115 = new Room(115,1, 1, "0", "0", "10", "15");
     }
 
     @Test
@@ -34,13 +34,13 @@ public class RoomDAOImplTest {
     }
 
     @Test
-    public void getRoomsByFloorTest() { List<Room> rooms = roomDAO.getRoomsByFloor(1);
+    public void getRoomsByFloorTest() { List<Room> rooms = roomDAO.getRoomsByFloor(1, 1);
        assertTrue(rooms.contains(room115));
     }
 
     @Test
     public void removeRoomByIdTest() {
-        roomDAO.removeRoomById(115);
+        roomDAO.removeRoomById(115, 1);
         List<Room> rooms = roomDAO.getAllRooms();
         assertFalse(rooms.contains(room115));
     }

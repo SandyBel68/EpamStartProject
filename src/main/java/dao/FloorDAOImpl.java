@@ -18,7 +18,7 @@ public class FloorDAOImpl implements FloorDAO {
     static final String getAllFloorsQuery = "SELECT * FROM floor";
     static final String removeFloorByIdQuery = "DELETE FROM floor WHERE idfloor = ? AND idbuilding = ?";
 
-    public static FloorDAOImpl instance = null;
+    public static FloorDAOImpl instance;
     public final DataSource DATASOURCE;
 
     private FloorDAOImpl(DataSource dataSource) {

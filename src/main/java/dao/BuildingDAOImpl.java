@@ -18,7 +18,7 @@ public class BuildingDAOImpl implements BuildingDAO {
     static final String addBuildingQuery = "INSERT INTO building (idbuilding, address) VALUES (?,?)";
     static final String getAllBuildingsQuery = "SELECT * FROM building";
 
-    public static BuildingDAOImpl instance = null;
+    public static BuildingDAOImpl instance;
     public final DataSource DATASOURCE;
 
     private BuildingDAOImpl(DataSource dataSource) {

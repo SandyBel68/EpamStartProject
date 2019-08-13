@@ -1,8 +1,10 @@
 package dao;
 
-import entities.Visitor;
+import visitor.Visitor;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import visitor.VisitorDAO;
+import visitor.VisitorDAOImpl;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;

@@ -1,6 +1,4 @@
-package dao;
-
-import entities.Floor;
+package floor;
 
 import java.util.List;
 

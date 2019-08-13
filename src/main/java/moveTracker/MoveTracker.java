@@ -1,4 +1,4 @@
-package entities;
+package moveTracker;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

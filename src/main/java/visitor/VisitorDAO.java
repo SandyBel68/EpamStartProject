@@ -1,6 +1,4 @@
-package dao;
-
-import entities.Visitor;
+package visitor;
 
 import java.util.List;
 

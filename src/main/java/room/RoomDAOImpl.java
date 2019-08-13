@@ -1,7 +1,6 @@
-package dao;
+package room;
 
-import database.DataSourceInit;
-import entities.Room;
+import common.DataSourceInit;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;

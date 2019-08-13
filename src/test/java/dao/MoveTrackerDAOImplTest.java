@@ -1,6 +1,8 @@
 package dao;
 
-import entities.MoveTracker;
+import moveTracker.MoveTracker;
+import moveTracker.MoveTrackerDAO;
+import moveTracker.MoveTrackerDAOImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

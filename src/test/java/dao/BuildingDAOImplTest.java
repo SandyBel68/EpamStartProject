@@ -1,6 +1,8 @@
 package dao;
 
-import entities.Building;
+import building.Building;
+import building.BuildingDAO;
+import building.BuildingDAOImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

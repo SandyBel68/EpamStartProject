@@ -1,8 +1,10 @@
 package dao;
 
-import entities.Room;
+import room.Room;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import room.RoomDAO;
+import room.RoomDAOImpl;
 
 import java.util.List;
 

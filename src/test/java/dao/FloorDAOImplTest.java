@@ -1,6 +1,8 @@
 package dao;
 
-import entities.Floor;
+import floor.Floor;
+import floor.FloorDAO;
+import floor.FloorDAOImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

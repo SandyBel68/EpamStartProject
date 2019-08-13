@@ -1,7 +1,6 @@
-package dao;
+package floor;
 
-import database.DataSourceInit;
-import entities.Floor;
+import common.DataSourceInit;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;

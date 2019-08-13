@@ -1,6 +1,4 @@
-package dao;
-
-import entities.Building;
+package building;
 
 import java.util.List;
 

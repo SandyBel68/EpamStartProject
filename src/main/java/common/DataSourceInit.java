@@ -1,4 +1,4 @@
-package database;
+package common;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 

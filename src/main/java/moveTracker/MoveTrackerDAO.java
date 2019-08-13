@@ -1,6 +1,4 @@
-package dao;
-
-import entities.MoveTracker;
+package moveTracker;
 
 import java.util.List;
 

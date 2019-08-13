@@ -1,7 +1,6 @@
-package dao;
+package visitor;
 
-import database.DataSourceInit;
-import entities.Visitor;
+import common.DataSourceInit;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;

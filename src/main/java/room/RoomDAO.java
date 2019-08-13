@@ -1,6 +1,4 @@
-package dao;
-
-import entities.Room;
+package room;
 
 import java.util.List;
 

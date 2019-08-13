@@ -19,7 +19,7 @@ public class MoveTrackerDAOImplTest {
         trackerDAO = MoveTrackerDAOImpl.getInstance();
         LocalDateTime start = LocalDateTime.now();
         LocalDateTime finish = LocalDateTime.now().plusMinutes(1);
-        move1 = new MoveTracker(1, 1, 1, 101, start, finish);
+        move1 = new MoveTracker(1, 1, 101, start, finish);
     }
 
     @Test

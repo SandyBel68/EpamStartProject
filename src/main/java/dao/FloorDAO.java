@@ -10,4 +10,6 @@ public interface FloorDAO {
     List<Floor> getAllFloors();
 
     void removeFloorById(Integer idFloor, Integer idBuilding);
+
+    Floor getFloorById(Integer idFloor, Integer idBuilding);
 }

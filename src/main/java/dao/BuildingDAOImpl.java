@@ -2,7 +2,6 @@ package dao;
 
 import database.DataSourceInit;
 import entities.Building;
-import entities.Room;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;

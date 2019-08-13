@@ -17,6 +17,7 @@ public class FloorDAOImpl implements FloorDAO {
     static final String addFloorQuery = "INSERT INTO floor (idfloor, idbuilding, maxXsize, maxYsize) VALUES (?,?,?,?)";
     static final String getAllFloorsQuery = "SELECT * FROM floor";
     static final String removeFloorByIdQuery = "DELETE FROM floor WHERE idfloor = ? AND idbuilding = ?";
+    static final String getFloorByID = "SELECT * FROM floor where idfloor = ? AND idbuilding = ?";
 
     public static FloorDAOImpl instance;
     public final DataSource DATASOURCE;
@@ -92,6 +93,30 @@ public class FloorDAOImpl implements FloorDAO {
                 //TODO Logging!
             }
         }
+    }
+
+    @Override
+    public Floor getFloorById(Integer idFloor, Integer idBuilding) {
+        Floor floor = new Floor();
+        try (Connection connection = DATASOURCE.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(getFloorByID)) {
+            preparedStatement.setInt(1, idFloor);
+            preparedStatement.setInt(2, idBuilding);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    floor = new Floor(
+                            resultSet.getInt("idFloor"),
+                            resultSet.getInt("idBuilding"),
+                            resultSet.getString("maxXSize"),
+                            resultSet.getString("MaxYSize")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            //TODO logging
+            System.err.println(e);
+        }
+        return floor;
     }
 }
 

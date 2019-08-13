@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import room.RoomDAO;
 import room.RoomDAOImpl;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -23,25 +24,25 @@ public class RoomDAOImplTest {
     }
 
     @Test
-    public void addRoomTest(){
+    public void addRoomTest() throws SQLException {
         roomDAO.addRoom(room115);
         List<Room> rooms = roomDAO.getAllRooms();
         assertTrue(rooms.contains(room115));
     }
 
     @Test
-    public void getAllRoomsTest() {
+    public void getAllRoomsTest() throws SQLException {
         List<Room> rooms = roomDAO.getAllRooms();
         assertTrue(rooms.size() > 0);
     }
 
     @Test
-    public void getRoomsByFloorTest() { List<Room> rooms = roomDAO.getRoomsByFloor(1, 1);
+    public void getRoomsByFloorTest() throws SQLException { List<Room> rooms = roomDAO.getRoomsByFloor(1, 1);
        assertTrue(rooms.contains(room115));
     }
 
     @Test
-    public void removeRoomByIdTest() {
+    public void removeRoomByIdTest() throws SQLException {
         roomDAO.removeRoomById(115, 1);
         List<Room> rooms = roomDAO.getAllRooms();
         assertFalse(rooms.contains(room115));

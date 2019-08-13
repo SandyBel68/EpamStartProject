@@ -1,7 +1,6 @@
-package dao;
+package visitor;
 
-import database.DataSourceInit;
-import entities.Visitor;
+import common.DataSourceInit;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
@@ -14,10 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VisitorDAOImpl implements VisitorDAO {
-    static final String addVisitorQuery = "INSERT INTO visitor (idVisitor, visitorName) VALUES (?,?)";
-    static final String getAllVisitorsQuery = "SELECT * FROM visitor";
-    static final String removeVisitorByIdQuery = "DELETE FROM visitor WHERE idvisitor = ?";
-
     public static VisitorDAOImpl instance;
     public final DataSource DATASOURCE;
 
@@ -38,10 +33,10 @@ public class VisitorDAOImpl implements VisitorDAO {
     }
 
     @Override
-    public List<Visitor> getAllVisitors() {
+    public List<Visitor> getAllVisitors() throws SQLException {
         List<Visitor> allVisitors = new ArrayList<>();
         try (Connection connection = DATASOURCE.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(getAllVisitorsQuery)) {
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM visitor")) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     Visitor visitor = new Visitor(
@@ -51,40 +46,31 @@ public class VisitorDAOImpl implements VisitorDAO {
                     allVisitors.add(visitor);
                 }
             }
-        } catch (SQLException e) {
-            System.err.println(e);
-            //TODO Logging!
         }
         return allVisitors;
     }
 
     @Override
-    public void addVisitor(Visitor visitor) {
+    public void addVisitor(Visitor visitor) throws SQLException {
         {
             try (Connection connection = DATASOURCE.getConnection();
-                 PreparedStatement preparedStatement = connection.prepareStatement(addVisitorQuery)
+                 PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO visitor (idVisitor, visitorName) VALUES (?,?)")
             ) {
                 preparedStatement.setInt(1, visitor.getIdVisitor());
                 preparedStatement.setString(2, visitor.getVisitorName());
                 preparedStatement.execute();
-            } catch (SQLException e) {
-                System.err.println(e);
-                //TODO Logging!
             }
         }
     }
 
     @Override
-    public void removeVisitorById(Integer idVisitor) {
+    public void removeVisitorById(Integer idVisitor) throws SQLException {
         {
             try (Connection connection = DATASOURCE.getConnection();
-                 PreparedStatement preparedStatement = connection.prepareStatement(removeVisitorByIdQuery)
+                 PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM visitor WHERE idvisitor = ?")
             ) {
                 preparedStatement.setInt(1, idVisitor);
                 preparedStatement.execute();
-            } catch (SQLException e) {
-                System.err.println(e);
-                //TODO Logging!
             }
         }
     }

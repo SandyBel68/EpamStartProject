@@ -1,7 +1,6 @@
-package dao;
+package building;
 
-import database.DataSourceInit;
-import entities.Building;
+import common.DataSourceInit;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
@@ -14,8 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BuildingDAOImpl implements BuildingDAO {
-    static final String addBuildingQuery = "INSERT INTO building (idbuilding, address) VALUES (?,?)";
-    static final String getAllBuildingsQuery = "SELECT * FROM building";
 
     public static BuildingDAOImpl instance;
     public final DataSource DATASOURCE;
@@ -38,10 +35,10 @@ public class BuildingDAOImpl implements BuildingDAO {
 
 
     @Override
-    public List<Building> getAllBuidlings() {
+    public List<Building> getAllBuidlings() throws SQLException {
         List<Building> allBuildings = new ArrayList<>();
         try (Connection connection = DATASOURCE.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(getAllBuildingsQuery)) {
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM building")) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     Building building = new Building(
@@ -51,26 +48,21 @@ public class BuildingDAOImpl implements BuildingDAO {
                     allBuildings.add(building);
                 }
             }
-        } catch (SQLException e) {
-            System.err.println(e);
-            //TODO Logging!
         }
         return allBuildings;
     }
 
     @Override
-    public void addBuilding(Building building) {
+    public void addBuilding(Building building) throws SQLException {
         {
             try (Connection connection = DATASOURCE.getConnection();
-                 PreparedStatement preparedStatement = connection.prepareStatement(addBuildingQuery)
+                 PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO building (idbuilding, address) VALUES (?,?)")
             ) {
                 preparedStatement.setInt(1, building.getIdBuilding());
                 preparedStatement.setString(2, building.getAddress());
                 preparedStatement.execute();
-            } catch (SQLException e) {
-                System.err.println(e);
-                //TODO Logging!
             }
         }
     }
 }
+

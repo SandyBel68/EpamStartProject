@@ -6,6 +6,7 @@ import movetracker.MoveTrackerDAOImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,22 +22,22 @@ public class MoveTrackerDAOImplTest {
         trackerDAO = MoveTrackerDAOImpl.getInstance();
         LocalDateTime start = LocalDateTime.now();
         LocalDateTime finish = LocalDateTime.now().plusMinutes(1);
-        move1 = new MoveTracker(1, 1, 1, 101, start, finish);
+        move1 = new MoveTracker(1, 1, 101, start, finish);
     }
 
     @Test
-    public void addMovementTest(){
+    public void addMovementTest() throws SQLException {
         trackerDAO.addMovement(move1);
     }
 
     @Test
-    public void getByRoomIdTest() {
+    public void getByRoomIdTest() throws SQLException {
         List<MoveTracker> byRoom = trackerDAO.getByRoomId(101, 1);
         assertTrue(byRoom.contains(move1));
     }
 
     @Test
-    public void getByVisitorIdTest(){
+    public void getByVisitorIdTest() throws SQLException {
         List<MoveTracker> byVisitor = trackerDAO.getByVisitorId(1);
         assertTrue(byVisitor.contains(move1));
     }

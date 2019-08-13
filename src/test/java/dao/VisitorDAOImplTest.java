@@ -9,6 +9,7 @@ import visitor.VisitorDAOImpl;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class VisitorDAOImplTest {
@@ -23,20 +24,20 @@ public class VisitorDAOImplTest {
     }
 
     @Test
-    public void addVisitorTest() {
+    public void addVisitorTest() throws SQLException {
         visitorDAO.addVisitor(semen);
         List<Visitor> visitors = visitorDAO.getAllVisitors();
         assertTrue(visitors.contains(semen));
     }
 
     @Test
-    public void getAllVisitorsTest() {
+    public void getAllVisitorsTest() throws SQLException {
         List<Visitor> visitors = visitorDAO.getAllVisitors();
         assertTrue(visitors.size() > 0);
     }
 
     @Test
-    public void removeVisitorByIdTest() {
+    public void removeVisitorByIdTest() throws SQLException {
         visitorDAO.removeVisitorById(5);
         List<Visitor> visitors = visitorDAO.getAllVisitors();
         assertFalse(visitors.contains(semen));

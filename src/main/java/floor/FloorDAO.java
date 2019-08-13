@@ -1,13 +1,14 @@
 package floor;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface FloorDAO {
-    void addFloor(Floor floor);
+    void addFloor(Floor floor) throws SQLException;
 
-    List<Floor> getAllFloors();
+    List<Floor> getAllFloors() throws SQLException;
 
-    void removeFloorById(Integer idFloor, Integer idBuilding);
+    void removeFloorById(Integer idFloor, Integer idBuilding) throws SQLException;
 
-    Floor getFloorById(Integer idFloor, Integer idBuilding);
+    Floor getFloorById(Integer idFloor, Integer idBuilding) throws SQLException;
 }

@@ -33,9 +33,17 @@ public class FloorDAOImplTest {
     }
 
     @Test
+    public void getFloorByIDTest(){
+        Floor floorEx25 = floorDAO.getFloorById(25,1);
+        assertTrue(floorEx25.equals(floor25));
+    }
+
+    @Test
     public void removeFloorByIdTest() {
         floorDAO.removeFloorById(25, 1);
         List<Floor> floors = floorDAO.getAllFloors();
         assertFalse(floors.contains(floor25));
     }
+
+
 }

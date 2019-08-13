@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoveTrackerDAOImpl implements MoveTrackerDAO {
-    static final String addTrackQuery = "INSERT INTO movetracker (idmove, idbuilding, idvisitor, idroom, timestart, timefinish) VALUES (?,?,?,?,?,?)";
+    static final String addTrackQuery = "INSERT INTO movetracker (idbuilding, idvisitor, idroom, timestart, timefinish) VALUES (?,?,?,?,?)";
     static final String getAllTracksByRoom = "SELECT * FROM movetracker where idroom = ? AND idbuilding = ?";
     static final String getAllTracksByVisitor = "SELECT * FROM movetracker where idvisitor = ?";
 
@@ -44,12 +44,11 @@ public class MoveTrackerDAOImpl implements MoveTrackerDAO {
             try (Connection connection = DATASOURCE.getConnection();
                  PreparedStatement preparedStatement = connection.prepareStatement(addTrackQuery)
             ) {
-                preparedStatement.setInt(1, movement.getIdMove());
-                preparedStatement.setInt(2, movement.getIdBuilding());
-                preparedStatement.setInt(3, movement.getIdVisitor());
-                preparedStatement.setInt(4, movement.getIdRoom());
-                preparedStatement.setTimestamp(5, Timestamp.valueOf(movement.getTimeStart()));
-                preparedStatement.setTimestamp(6, Timestamp.valueOf(movement.getTimeFinish()));
+                preparedStatement.setInt(1, movement.getIdBuilding());
+                preparedStatement.setInt(2, movement.getIdVisitor());
+                preparedStatement.setInt(3, movement.getIdRoom());
+                preparedStatement.setTimestamp(4, Timestamp.valueOf(movement.getTimeStart()));
+                preparedStatement.setTimestamp(5, Timestamp.valueOf(movement.getTimeFinish()));
                 preparedStatement.execute();
             } catch (SQLException e) {
                 //TODO Logging!

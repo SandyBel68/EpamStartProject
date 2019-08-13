@@ -1,4 +1,4 @@
-package moveTracker;
+package movetracker;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package moveTracker;
+package movetracker;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

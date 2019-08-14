@@ -23,7 +23,7 @@ public class StatisticsService {
         try {
             moveListRoom = moveDao.getByRoomId(idRoom, idBuilding);
         } catch (SQLException e) {
-            System.err.println(e);
+            System.err.println(e + "21");
             //TODO logging
         }
         return moveListRoom;
@@ -34,7 +34,7 @@ public class StatisticsService {
         try {
             moveListVisitor = moveDao.getByVisitorId(idVisitor);
         } catch (SQLException e) {
-            System.err.println(e);
+            System.err.println(e + "22");
             //TODO logging
         }
         return moveListVisitor;

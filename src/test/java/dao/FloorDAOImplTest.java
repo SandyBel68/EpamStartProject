@@ -28,26 +28,28 @@ public class FloorDAOImplTest {
 
     @Test
     public void getAllByBuildingAndNumberTest() throws SQLException {
-        Floor returned = floorDAO.getByBuildingAndNumber(1,25);
-        assertTrue(returned.equals(floor25));
-        System.out.println(returned);
+        Integer idBuilding = 1;
+        Integer floorNumber = 25;
+        Floor returned = floorDAO.getByBuildingAndNumber(idBuilding, floorNumber);
+        assertTrue(returned.getIdFloor().equals(floor25.getIdFloor()));;
     }
 
     @Test
     public void getByIDTest() throws SQLException {
         Floor floorEx25 = floorDAO.getById(27);
-        assertTrue(floorEx25.equals(floor25));
+        assertTrue(floorEx25.getIdFloor().equals(floor25.getIdFloor()));
     }
 
     @Test
     public void updateTest() throws SQLException{
-        Floor update = new Floor(27,26,1, "1400", "400");
+        Floor update = new Floor(27,25,1, "1400", "600");
         Integer returned = floorDAO.update(update);
-        System.out.println(returned);
+        assertTrue(returned > 0);
     }
 
     @Test
     public void removeByIdTest() throws SQLException {
-        floorDAO.removeById(27);
+        boolean isDeleted = floorDAO.removeById(27);
+        assertTrue(isDeleted);
     }
 }

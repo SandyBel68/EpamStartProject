@@ -29,7 +29,7 @@ public class MoveTrackerDAOImplTest {
     @Test
     public void addTest() throws SQLException {
         Integer id = trackerDAO.add(move1);
-        assertFalse(id.equals(null));
+        assertTrue(id > 0);
     }
 
     @Test
@@ -50,6 +50,7 @@ public class MoveTrackerDAOImplTest {
         LocalDateTime fn = st.plusSeconds(2);
         MoveTracker update = new MoveTracker(3,7,118, st, fn);
         Integer returned = trackerDAO.update(update);
+        assertTrue(returned > 0);
     }
 
     @Test

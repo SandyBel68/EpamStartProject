@@ -51,9 +51,8 @@ public class VisitorDAOImplTest {
 
     @Test
     public void removeByIdTest() throws SQLException {
-        visitorDAO.deleteById(6);
-        List<Visitor> visitors = visitorDAO.getAll();
-        assertFalse(visitors.contains(semen));
+        boolean isDeleted = visitorDAO.deleteById(6);
+        assertTrue(isDeleted);
     }
 }
 

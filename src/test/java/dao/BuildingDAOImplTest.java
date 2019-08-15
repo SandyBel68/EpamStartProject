@@ -26,7 +26,7 @@ public class BuildingDAOImplTest {
     @Test
     public void addTest() throws SQLException {
         Integer id = buildingDAO.add(building);
-        assertTrue(id.equals(null));
+        assertTrue(id > 0);
     }
 
 
@@ -44,10 +44,9 @@ public class BuildingDAOImplTest {
 
     @Test
     public void updateByIdTest() throws SQLException{
-        String addressNew = "HHH";
-        Building update = new Building(3,addressNew);
+        Building update = new Building(3,"HHH 123");
         Integer returned = buildingDAO.update(update);
-        assertTrue(update.getAddress().equals(addressNew));
+        assertTrue(returned > 0);
     }
 
     @Test

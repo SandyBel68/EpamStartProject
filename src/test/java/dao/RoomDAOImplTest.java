@@ -25,9 +25,9 @@ public class RoomDAOImplTest {
 
     @Test
     public void addRoomTest() throws SQLException {
-            Integer id = roomDAO.add(room115);
-            assertFalse(id.equals(null));
-        }
+        Integer id = roomDAO.add(room115);
+        assertTrue(id > 0);
+    }
 
     @Test
     public void getAllByFloorTest() throws SQLException {
@@ -43,14 +43,15 @@ public class RoomDAOImplTest {
     }
 
     @Test
-    public void updateTest() throws SQLException{
-        Room update = new Room(118,20,28,"0","0","100","100");
+    public void updateTest() throws SQLException {
+        Room update = new Room(118, 20, 28, "0", "0", "100", "100");
         Integer returned = roomDAO.update(update);
         System.out.println(returned);
     }
 
     @Test
     public void removeByIdTest() throws SQLException {
-        roomDAO.removeById(118);
+        boolean isDeleted = roomDAO.removeById(118);
+        assertTrue(isDeleted);
     }
 }

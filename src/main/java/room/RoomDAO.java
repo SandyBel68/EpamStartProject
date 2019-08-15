@@ -4,11 +4,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface RoomDAO {
-    List<Room> getAllRooms() throws SQLException;
+    List<Room> getAllByFloor(Integer ifFloor) throws SQLException;
 
-    void addRoom(Room room) throws SQLException;
+    Integer add(Room room) throws SQLException;
 
-    List<Room> getRoomsByFloor(Integer idFloor, Integer idBuilding) throws SQLException;
+    Room getById(Integer idRoom) throws SQLException;
 
-    void removeRoomById(Integer idRoom, Integer idBuilding) throws SQLException;
+    Integer update(Room room) throws SQLException;
+
+    boolean removeById(Integer idRoom) throws SQLException;
 }

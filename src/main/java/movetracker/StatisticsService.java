@@ -21,7 +21,7 @@ public class StatisticsService {
     public List<MoveTracker> getListByRoom(int idRoom, int idBuilding) {
         List<MoveTracker> moveListRoom = null;
         try {
-            moveListRoom = moveDao.getByRoomId(idRoom, idBuilding);
+            moveListRoom = moveDao.getByRoomId(idRoom);
         } catch (SQLException e) {
             System.err.println(e);
             //TODO logging

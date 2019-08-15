@@ -13,16 +13,12 @@ import java.time.LocalDateTime;
 public class MoveTracker {
     @EqualsAndHashCode.Exclude
     private Integer idMove;
-    private Integer idBuilding;
     private Integer idVisitor;
     private Integer idRoom;
-    @EqualsAndHashCode.Exclude
     private LocalDateTime timeStart;
-    @EqualsAndHashCode.Exclude
     private LocalDateTime timeFinish;
 
-    public MoveTracker(Integer idBuilding, Integer idVisitor, Integer idRoom, LocalDateTime timeStart, LocalDateTime timeFinish) {
-        this.idBuilding = idBuilding;
+    public MoveTracker(Integer idVisitor, Integer idRoom, LocalDateTime timeStart, LocalDateTime timeFinish) {
         this.idVisitor = idVisitor;
         this.idRoom = idRoom;
         this.timeStart = timeStart;

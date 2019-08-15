@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MoveTrackerDAOImplTest {
@@ -22,23 +23,38 @@ public class MoveTrackerDAOImplTest {
         trackerDAO = MoveTrackerDAOImpl.getInstance();
         LocalDateTime start = LocalDateTime.now();
         LocalDateTime finish = LocalDateTime.now().plusMinutes(1);
-        move1 = new MoveTracker(1, 1, 101, start, finish);
+        move1 = new MoveTracker( 7, 118, start, finish);
     }
 
     @Test
-    public void addMovementTest() throws SQLException {
-        trackerDAO.addMovement(move1);
+    public void addTest() throws SQLException {
+        Integer id = trackerDAO.add(move1);
+        assertFalse(id.equals(null));
     }
 
     @Test
     public void getByRoomIdTest() throws SQLException {
-        List<MoveTracker> byRoom = trackerDAO.getByRoomId(101, 1);
-        assertTrue(byRoom.contains(move1));
+        List<MoveTracker> byRoom = trackerDAO.getByRoomId(118);
+        System.out.println(byRoom);
     }
 
     @Test
     public void getByVisitorIdTest() throws SQLException {
-        List<MoveTracker> byVisitor = trackerDAO.getByVisitorId(1);
-        assertTrue(byVisitor.contains(move1));
+        List<MoveTracker> byVisitor = trackerDAO.getByVisitorId(7);
+        System.out.println(byVisitor);
+    }
+
+    @Test
+    public void updateByIdTest() throws SQLException{
+        LocalDateTime st = LocalDateTime.now();
+        LocalDateTime fn = st.plusSeconds(2);
+        MoveTracker update = new MoveTracker(3,7,118, st, fn);
+        Integer returned = trackerDAO.update(update);
+    }
+
+    @Test
+    public void deleteByIdTest() throws SQLException{
+        boolean isDeleted = trackerDAO.deleteById(3);
+        assertTrue(isDeleted);
     }
 }

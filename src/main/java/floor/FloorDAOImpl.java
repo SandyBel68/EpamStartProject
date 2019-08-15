@@ -9,8 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Statement;
 
 public class FloorDAOImpl implements FloorDAO {
     public static FloorDAOImpl instance;
@@ -33,64 +32,90 @@ public class FloorDAOImpl implements FloorDAO {
     }
 
     @Override
-    public void addFloor(Floor floor) throws SQLException {
-        {
-            try (Connection connection = DATASOURCE.getConnection();
-                 PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO floor (idfloor, idbuilding, maxXsize, maxYsize) VALUES (?,?,?,?)")
-            ) {
-                preparedStatement.setInt(1, floor.getIdFloor());
-                preparedStatement.setInt(2, floor.getIdBuilding());
-                preparedStatement.setString(3, floor.getMaxXSize());
-                preparedStatement.setString(4, floor.getMaxYSize());
-                preparedStatement.execute();
-            }
-        }
-    }
-
-    @Override
-    public List<Floor> getAllFloors() throws SQLException {
-        List<Floor> allFloors = new ArrayList<>();
+    public Integer add(Floor floor) throws SQLException {
+        Integer id;
         try (Connection connection = DATASOURCE.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM floor")) {
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()) {
-                    Floor floor = new Floor(
-                            resultSet.getInt("idFloor"),
-                            resultSet.getInt("idBuilding"),
-                            resultSet.getString("maxXSize"),
-                            resultSet.getString("MaxYSize")
-                    );
-                    allFloors.add(floor);
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO floor (numberfloor, idbuilding, maxXsize, maxYsize) VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS)
+        ) {
+            preparedStatement.setInt(1, floor.getNumberFloor());
+            preparedStatement.setInt(2, floor.getIdBuilding());
+            preparedStatement.setString(3, floor.getMaxXSize());
+            preparedStatement.setString(4, floor.getMaxYSize());
+            preparedStatement.executeUpdate();
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    id = generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creation failed");
                 }
             }
-            return allFloors;
+        }
+        return id;
+    }
+
+    @Override
+    public Integer update(Floor floor) throws SQLException {
+        try (Connection connection = DATASOURCE.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE floor SET numberFloor = ?, idbuilding = ?, maxYsize = ?, maxXsize = ? WHERE idFloor = ?")) {
+            preparedStatement.setInt(1, floor.getNumberFloor());
+            preparedStatement.setInt(2, floor.getIdBuilding());
+            preparedStatement.setString(3, floor.getMaxYSize());
+            preparedStatement.setString(4, floor.getMaxXSize());
+            preparedStatement.setInt(5, floor.getIdFloor());
+            preparedStatement.executeUpdate();
+            return floor.getIdFloor();
         }
     }
 
     @Override
-    public void removeFloorById(Integer idFloor, Integer idBuilding) throws SQLException {
-        {
-            try (Connection connection = DATASOURCE.getConnection();
-                 PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM floor WHERE idfloor = ? AND idbuilding = ?")
-            ) {
-                preparedStatement.setInt(1, idFloor);
-                preparedStatement.setInt(2, idBuilding);
-                preparedStatement.execute();
-            }
-        }
-    }
-
-    @Override
-    public Floor getFloorById(Integer idFloor, Integer idBuilding) throws SQLException {
+    public Floor getByBuildingAndNumber(Integer idBuilding, Integer numberFloor) throws SQLException {
         Floor floor = new Floor();
         try (Connection connection = DATASOURCE.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM floor where idfloor = ? AND idbuilding = ?")) {
-            preparedStatement.setInt(1, idFloor);
-            preparedStatement.setInt(2, idBuilding);
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM floor WHERE idbuilding = ? AND numberFloor = ?")) {
+            preparedStatement.setInt(1, idBuilding);
+            preparedStatement.setInt(2, numberFloor);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     floor = new Floor(
                             resultSet.getInt("idFloor"),
+                            resultSet.getInt("numberFloor"),
+                            resultSet.getInt("idBuilding"),
+                            resultSet.getString("maxXSize"),
+                            resultSet.getString("MaxYSize")
+                    );
+                }
+            }
+        }
+        return floor;
+    }
+
+    @Override
+    public boolean removeById(Integer idFloor) throws SQLException {
+        int numRows;
+        {
+            try (Connection connection = DATASOURCE.getConnection();
+                 PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM floor WHERE idFloor = ?")
+            ) {
+                preparedStatement.setInt(1, idFloor);
+                numRows = preparedStatement.executeUpdate();
+            }
+        }
+        if (numRows > 0) {
+            return true;
+        } else return false;
+    }
+
+    @Override
+    public Floor getById(Integer idFloor) throws SQLException {
+        Floor floor = new Floor();
+        try (Connection connection = DATASOURCE.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM floor where idfloor = ?")) {
+            preparedStatement.setInt(1, idFloor);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    floor = new Floor(
+                            resultSet.getInt("idFloor"),
+                            resultSet.getInt("numberFloor"),
                             resultSet.getInt("idBuilding"),
                             resultSet.getString("maxXSize"),
                             resultSet.getString("MaxYSize")

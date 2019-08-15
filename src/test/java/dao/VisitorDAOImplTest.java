@@ -1,57 +1,47 @@
 package dao;
 
-import visitor.Visitor;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import visitor.Visitor;
 import visitor.VisitorDAO;
 import visitor.VisitorDAOImpl;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.sql.SQLException;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class VisitorDAOImplTest {
 
     private static VisitorDAO visitorDAO;
-    private static Visitor semen;
 
     @BeforeAll
     public static void init() {
         visitorDAO = VisitorDAOImpl.getInstance();
-        semen = new Visitor("Semen");
     }
 
     @Test
-    public void addTest() throws SQLException {
-        Integer id = visitorDAO.add(semen);
-        assertTrue(id > 0);
-    }
+    public void visitorDAOTest() throws SQLException {
+        String name = "Semen";
+        Visitor semen = new Visitor(name);
 
-    @Test
-    public void getAllTest() throws SQLException {
+        Integer idVisitor = visitorDAO.add(semen);
+
         List<Visitor> visitors = visitorDAO.getAll();
-        assertTrue(visitors.size() > 0);
-    }
+        assertTrue(visitors.contains(semen));
 
-    @Test
-    public void getByNameTest() throws SQLException{
-        List<Visitor> visitorslist = visitorDAO.getByName("Semen");
-        assertTrue(visitorslist.size() > 0);
-        System.out.println(visitorslist);
-    }
+        List<Visitor> visitorsByName = visitorDAO.getByName("Semen");
+        assertTrue(visitorsByName.contains(semen));
 
-    @Test
-    public void updateByIdTest() throws SQLException{
-        Visitor update = new Visitor(6,"Sonya");
-        Integer returned = visitorDAO.update(update);
-        System.out.println(returned);
-    }
+        String newName = "Mike";
+        Visitor update = new Visitor(idVisitor,newName);
+        Integer returnedId = visitorDAO.update(update);
 
-    @Test
-    public void removeByIdTest() throws SQLException {
-        boolean isDeleted = visitorDAO.deleteById(6);
+        List<Visitor> visitorsByNewName = visitorDAO.getByName(newName);
+        assertTrue(visitorsByNewName.contains(update));
+
+        boolean isDeleted = visitorDAO.deleteById(idVisitor);
         assertTrue(isDeleted);
     }
 }

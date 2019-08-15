@@ -9,49 +9,37 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BuildingDAOImplTest {
     private static BuildingDAO buildingDAO;
-    private static Building building;
-    private static Integer id;
 
     @BeforeAll
     public static void init() {
         buildingDAO = BuildingDAOImpl.getInstance();
-        building = new Building("Moscow, Tverskaya str. 1234");
     }
 
     @Test
-    public void addTest() throws SQLException {
-        Integer id = buildingDAO.add(building);
-        assertTrue(id > 0);
-    }
+    public void buildingDAOTest() throws SQLException {
+        String address = "St.Petersburg, Zastavskaya 22";
+        Building newBuilding = new Building(address);
 
+        Integer idBuilding = buildingDAO.add(newBuilding);
 
-    @Test
-    public void getAllTest() throws SQLException {
         List<Building> buildings = buildingDAO.getAll();
-        assertTrue(buildings.size() > 0);
-    }
+        assertTrue(buildings.contains(newBuilding));
 
-    @Test
-    public void getByAddressTest() throws SQLException{
-        Building returned = buildingDAO.getByAddress("Moscow, Tverskaya str. 1234");
-        assertTrue(returned.getIdBuilding().equals(building.getIdBuilding()));
-    }
+        Building returnedBuilding = buildingDAO.getByAddress(address);
+        assertEquals(returnedBuilding.getAddress(), newBuilding.getAddress());
 
-    @Test
-    public void updateByIdTest() throws SQLException{
-        Building update = new Building(3,"HHH 123");
-        Integer returned = buildingDAO.update(update);
-        assertTrue(returned > 0);
-    }
+        String addressNew = "HHH 123";
+        Building update = new Building(idBuilding, addressNew);
+        Integer returnedId = buildingDAO.update(update);
 
-    @Test
-    public void deleteByIdTest() throws SQLException{
-        boolean isDeleted = buildingDAO.deleteById(2);
+        Building returnedNewBuilding = buildingDAO.getByAddress(addressNew);
+        assertEquals(returnedNewBuilding.getAddress(), addressNew);
+
+        boolean isDeleted = buildingDAO.deleteById(idBuilding);
         assertTrue(isDeleted);
     }
 }

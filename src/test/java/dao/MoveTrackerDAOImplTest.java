@@ -19,11 +19,12 @@ public class MoveTrackerDAOImplTest {
     private static MoveTracker move1;
 
     @BeforeAll
-    public static void init() {
+    public static void init() throws SQLException {
         trackerDAO = MoveTrackerDAOImpl.getInstance();
         LocalDateTime start = LocalDateTime.now();
         LocalDateTime finish = LocalDateTime.now().plusMinutes(1);
-        move1 = new MoveTracker( 7, 118, start, finish);
+        move1 = new MoveTracker(7, 118, start, finish);
+        Integer id = trackerDAO.add(move1);
     }
 
     @Test

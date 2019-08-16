@@ -1,15 +1,14 @@
 package dao;
 
-import room.Room;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import room.Room;
 import room.RoomDAO;
 import room.RoomDAOImpl;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RoomDAOImplTest {

@@ -1,7 +1,7 @@
 package localStorage;
 
-import visitor.VisitorRoute;
+import visitor.VisitorRouteService;
 
 public class localStorage {
-     VisitorRoute visitorRoute = new VisitorRoute();
+     VisitorRouteService visitorRoute = new VisitorRouteService();
 }

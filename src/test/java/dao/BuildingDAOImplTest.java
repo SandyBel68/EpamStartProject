@@ -29,6 +29,11 @@ public class BuildingDAOImplTest {
         assertTrue(id > 0);
     }
 
+    @Test
+    public void getAll() throws SQLException {
+
+    }
+
 
     @Test
     public void getAllTest() throws SQLException {
@@ -39,7 +44,8 @@ public class BuildingDAOImplTest {
     @Test
     public void getByAddressTest() throws SQLException{
         Building returned = buildingDAO.getByAddress("Moscow, Tverskaya str. 1234");
-        assertTrue(returned.getIdBuilding().equals(building.getIdBuilding()));
+        System.out.println((buildingDAO.getAll().get(0)));
+        assertTrue(returned.getIdBuilding().equals(buildingDAO.getAll().get(0).getIdBuilding()));
     }
 
     @Test

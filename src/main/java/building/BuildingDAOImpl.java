@@ -64,6 +64,7 @@ public class BuildingDAOImpl implements BuildingDAO {
                             resultSet.getInt("idBuilding"),
                             resultSet.getString("address")
                     );
+
                 }
                 return building;
             }

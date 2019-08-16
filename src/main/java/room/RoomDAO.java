@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface RoomDAO {
-    List<Room> getAllByFloor(Integer ifFloor) throws SQLException;
+    List<Room> getAllByFloor(Integer idFloor) throws SQLException;
 
     Integer add(Room room) throws SQLException;
 

@@ -24,14 +24,14 @@ public class VisitorLocationTest {
     public void getVisitorLocation1() throws SQLException {
         long x1 = 200;
         long y1 = 200;
-        List<Room> rooms = roomDAO.getAllRooms();
+        List<Room> rooms = roomDAO.getAllByFloor(1);
         assertTrue(getVisitorLocation(rooms, x1, y1) == 101);
     }
     @Test
     public void getVisitorLocation2() throws SQLException {
         long x1 = 1200;
         long y1 = 200;
-        List<Room> rooms = roomDAO.getAllRooms();
+        List<Room> rooms = roomDAO.getAllByFloor(1);
         assertTrue(getVisitorLocation(rooms, x1, y1) == 103);
     }
 
@@ -39,7 +39,7 @@ public class VisitorLocationTest {
     public void getVisitorLocation3() throws SQLException {
         long x1 = 1300;
         long y1 = 700;
-        List<Room> rooms = roomDAO.getAllRooms();
+        List<Room> rooms = roomDAO.getAllByFloor(1);
         assertTrue(getVisitorLocation(rooms, x1, y1) == null);
     }
 

@@ -5,7 +5,7 @@ import room.Room;
 
 import java.util.List;
 
-public class GetVisitorLocation {
+public class GetVisitorLocationService {
 
 
     public static Integer getVisitorLocation(List<Room> roomList, long tempX1, long tempY1) {
@@ -22,7 +22,7 @@ public class GetVisitorLocation {
                 long tempY2 = Long.parseLong(r.getY2());
 
                 if ((humanLocationX1 >= tempX1 && humanLocationY1 >= tempY1) && (humanLocationX1 <= tempX2 && humanLocationY1 <= tempY2)) {
-                    return r.getIdRoom();
+                    return r.getNumberRoom();
                 }
             } catch (NumberFormatException e) {
                 System.out.println(e + "11");

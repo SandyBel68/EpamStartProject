@@ -14,4 +14,5 @@ public interface BuildingDAO {
     Integer update(Building building) throws SQLException;
 
     boolean deleteById(Integer idBuilding) throws SQLException;
+
 }

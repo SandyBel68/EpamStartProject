@@ -1,62 +1,88 @@
 package dao;
 
+import building.Building;
+import building.BuildingDAO;
+import building.BuildingDAOImpl;
+import floor.Floor;
+import floor.FloorDAO;
+import floor.FloorDAOImpl;
 import movetracker.MoveTracker;
 import movetracker.MoveTrackerDAO;
 import movetracker.MoveTrackerDAOImpl;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import room.Room;
+import room.RoomDAO;
+import room.RoomDAOImpl;
+import visitor.Visitor;
+import visitor.VisitorDAO;
+import visitor.VisitorDAOImpl;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MoveTrackerDAOImplTest {
-
-    private static MoveTrackerDAO trackerDAO;
-    private static MoveTracker move1;
-
-    @BeforeAll
-    public static void init() throws SQLException {
-        trackerDAO = MoveTrackerDAOImpl.getInstance();
-        LocalDateTime start = LocalDateTime.now();
-        LocalDateTime finish = LocalDateTime.now().plusMinutes(1);
-        move1 = new MoveTracker(7, 118, start, finish);
-        Integer id = trackerDAO.add(move1);
-    }
+    private static FloorDAO floorDAO = FloorDAOImpl.getInstance();
+    private static BuildingDAO buildingDAO = BuildingDAOImpl.getInstance();
+    private static RoomDAO roomDAO = RoomDAOImpl.getInstance();
+    private static MoveTrackerDAO moveDAO = MoveTrackerDAOImpl.getInstance();
+    private static VisitorDAO visitorDAO = VisitorDAOImpl.getInstance();
 
     @Test
-    public void addTest() throws SQLException {
-        Integer id = trackerDAO.add(move1);
-        assertTrue(id > 0);
-    }
+    public void moveTrackerDaoTest() throws SQLException {
+        String address = "St.Petersburg, Zastavskaya 23";
+        Building newBuilding = new Building(address);
+        Integer idBuilding = buildingDAO.add(newBuilding);
 
-    @Test
-    public void getByRoomIdTest() throws SQLException {
-        List<MoveTracker> byRoom = trackerDAO.getByRoomId(118);
-        System.out.println(byRoom);
-    }
+        Integer floorNumber = 3;
+        Floor floor3 = new Floor(floorNumber, idBuilding, "500", "500");
+        Integer idFloor = floorDAO.add(floor3);
 
-    @Test
-    public void getByVisitorIdTest() throws SQLException {
-        List<MoveTracker> byVisitor = trackerDAO.getByVisitorId(7);
-        System.out.println(byVisitor);
-    }
+        Integer numberRoom = 101;
+        Room roomEx = new Room(numberRoom, idFloor, "100", "0", "200", "300");
+        Integer idRoom = roomDAO.add(roomEx);
 
-    @Test
-    public void updateByIdTest() throws SQLException{
-        LocalDateTime st = LocalDateTime.now();
-        LocalDateTime fn = st.plusSeconds(2);
-        MoveTracker update = new MoveTracker(3,7,118, st, fn);
-        Integer returned = trackerDAO.update(update);
-        assertTrue(returned > 0);
-    }
+        String name = "John";
+        Visitor john = new Visitor(name);
+        Integer idVisitor = visitorDAO.add(john);
 
-    @Test
-    public void deleteByIdTest() throws SQLException{
-        boolean isDeleted = trackerDAO.deleteById(3);
-        assertTrue(isDeleted);
+        LocalDateTime start = LocalDateTime.of(2019, 2, 10, 14, 05 ,00);
+        LocalDateTime finish = LocalDateTime.of(2019, 2, 10, 14, 05 ,10);
+
+        //add
+        MoveTracker moveNew = new MoveTracker(idVisitor, idRoom, start, finish);
+        Integer idMove = moveDAO.add(moveNew);
+
+        List<MoveTracker> returnedByVisitor = moveDAO.getByVisitorId(idVisitor);
+        assertTrue(returnedByVisitor.size() > 0);
+        assertTrue(returnedByVisitor.contains(moveNew));
+
+        LocalDateTime startNew = LocalDateTime.of(2020, 2, 10, 14, 05 ,00);
+        LocalDateTime finishNew = LocalDateTime.of(2020, 2, 10, 14, 05 ,10);;
+        MoveTracker update = new MoveTracker(idMove, idVisitor, idRoom, startNew, finishNew);
+
+        Integer returnedId = moveDAO.update(update);
+        assertEquals(returnedId, idMove);
+
+        List<MoveTracker> returnedByIdRoom = moveDAO.getByRoomId(idRoom);
+        assertTrue(returnedByIdRoom.size() > 0);
+        assertTrue(returnedByIdRoom.contains(moveNew));
+
+        assertEquals(returnedByIdRoom.get(0).getTimeStart(), startNew);
+        assertEquals(returnedByIdRoom.get(0).getTimeFinish(), finishNew);
+
+        boolean isMoveDeleted = moveDAO.deleteById(idMove);
+        assertTrue(isMoveDeleted);
+        boolean isVisitorDeleted = visitorDAO.deleteById(idVisitor);
+        assertTrue(isVisitorDeleted);
+        boolean isRoomDeleted = roomDAO.removeById(idRoom);
+        assertTrue(isRoomDeleted);
+        boolean isFloorDeleted = floorDAO.removeById(idFloor);
+        assertTrue(isFloorDeleted);
+        boolean isBuildingDeleted = buildingDAO.deleteById(idBuilding);
+        assertTrue(isBuildingDeleted);
     }
 }

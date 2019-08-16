@@ -1,63 +1,48 @@
 package dao;
 
+import building.Building;
 import building.BuildingDAO;
 import building.BuildingDAOImpl;
-import building.Building;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BuildingDAOImplTest {
-    private static BuildingDAO buildingDAO;
-    private static Building building;
-    private static Integer id;
-
-    @BeforeAll
-    public static void init() {
-        buildingDAO = BuildingDAOImpl.getInstance();
-        building = new Building("Moscow, Tverskaya str. 1234");
-    }
+    private static BuildingDAO buildingDAO = BuildingDAOImpl.getInstance();
 
     @Test
-    public void addTest() throws SQLException {
-        Integer id = buildingDAO.add(building);
-        assertTrue(id > 0);
-    }
+    public void buildingDAOTest() throws SQLException {
+        String address = "Moskovskiy pr. 123";
+        Building newBuilding = new Building(address);
 
-    @Test
-    public void getAll() throws SQLException {
+        //add
+        Integer idBuilding = buildingDAO.add(newBuilding);
 
-    }
-
-
-    @Test
-    public void getAllTest() throws SQLException {
+        //getAll
         List<Building> buildings = buildingDAO.getAll();
         assertTrue(buildings.size() > 0);
-    }
+        assertTrue(buildings.contains(newBuilding));
 
-    @Test
-    public void getByAddressTest() throws SQLException{
-        Building returned = buildingDAO.getByAddress("Moscow, Tverskaya str. 1234");
-        System.out.println((buildingDAO.getAll().get(0)));
-        assertTrue(returned.getIdBuilding().equals(buildingDAO.getAll().get(0).getIdBuilding()));
-    }
+        //getByAddress
+        Building returnedBuilding = buildingDAO.getByAddress(address);
+        assertEquals(returnedBuilding.getAddress(), newBuilding.getAddress());
 
-    @Test
-    public void updateByIdTest() throws SQLException{
-        Building update = new Building(3,"HHH 123");
-        Integer returned = buildingDAO.update(update);
-        assertTrue(returned > 0);
-    }
+        //update
+        String addressNew = "HHH 123";
+        Building update = new Building(idBuilding, addressNew);
+        Integer returnedId = buildingDAO.update(update);
+        assertEquals(returnedId, idBuilding);
 
-    @Test
-    public void deleteByIdTest() throws SQLException{
-        boolean isDeleted = buildingDAO.deleteById(2);
+        //getByAddress
+        Building returnedNewBuilding = buildingDAO.getByAddress(addressNew);
+        assertEquals(returnedNewBuilding.getAddress(), addressNew);
+
+        //delete
+        boolean isDeleted = buildingDAO.deleteById(idBuilding);
         assertTrue(isDeleted);
     }
 }

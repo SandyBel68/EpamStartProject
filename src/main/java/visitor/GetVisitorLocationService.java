@@ -27,6 +27,7 @@ public class GetVisitorLocationService {
             } catch (NumberFormatException e) {
                 System.out.println(e + "11");
                 e.printStackTrace();
+
             }
         }
         return null;

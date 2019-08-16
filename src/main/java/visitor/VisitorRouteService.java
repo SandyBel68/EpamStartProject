@@ -30,6 +30,7 @@ public class VisitorRouteService {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
             System.out.println(tempHumanLocationX1 + " " + tempHumanLocationY1 + " Room number: " + getVisitorLocation(rooms, tempHumanLocationX1, tempHumanLocationY1) + " time: " + dateTimeFormatter.format(LocalDateTime.now()));
+
             try {
                 Thread.sleep(5 * 1000);
             } catch (InterruptedException e) {

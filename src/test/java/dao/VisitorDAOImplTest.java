@@ -20,26 +20,40 @@ public class VisitorDAOImplTest {
     @BeforeAll
     public static void init() {
         visitorDAO = VisitorDAOImpl.getInstance();
-        semen = new Visitor(5, "Semen");
+        semen = new Visitor("Semen");
     }
 
     @Test
-    public void addVisitorTest() throws SQLException {
-        visitorDAO.addVisitor(semen);
-        List<Visitor> visitors = visitorDAO.getAllVisitors();
-        assertTrue(visitors.contains(semen));
+    public void addTest() throws SQLException {
+        Integer id = visitorDAO.add(semen);
+        assertTrue(id > 0);
     }
 
     @Test
-    public void getAllVisitorsTest() throws SQLException {
-        List<Visitor> visitors = visitorDAO.getAllVisitors();
+    public void getAllTest() throws SQLException {
+        List<Visitor> visitors = visitorDAO.getAll();
         assertTrue(visitors.size() > 0);
     }
 
     @Test
-    public void removeVisitorByIdTest() throws SQLException {
-        visitorDAO.removeVisitorById(5);
-        List<Visitor> visitors = visitorDAO.getAllVisitors();
-        assertFalse(visitors.contains(semen));
+    public void getByNameTest() throws SQLException{
+        List<Visitor> visitorslist = visitorDAO.getByName("Semen");
+        assertTrue(visitorslist.size() > 0);
+        System.out.println(visitorslist);
+    }
+
+    @Test
+    public void updateByIdTest() throws SQLException{
+        Visitor update = new Visitor(6,"Sonya");
+        Integer returned = visitorDAO.update(update);
+        System.out.println(returned);
+    }
+
+    @Test
+    public void removeByIdTest() throws SQLException {
+        boolean isDeleted = visitorDAO.deleteById(6);
+        assertTrue(isDeleted);
     }
 }
+
+

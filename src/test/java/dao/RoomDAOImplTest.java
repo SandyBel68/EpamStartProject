@@ -20,31 +20,38 @@ public class RoomDAOImplTest {
     @BeforeAll
     public static void init() {
         roomDAO = RoomDAOImpl.getInstance();
-        room115 = new Room(115,1, 1, "0", "0", "10", "15");
+        room115 = new Room(115, 28, "0", "0", "10", "15");
     }
 
     @Test
     public void addRoomTest() throws SQLException {
-        roomDAO.addRoom(room115);
-        List<Room> rooms = roomDAO.getAllRooms();
-        assertTrue(rooms.contains(room115));
+        Integer id = roomDAO.add(room115);
+        assertTrue(id > 0);
     }
 
     @Test
-    public void getAllRoomsTest() throws SQLException {
-        List<Room> rooms = roomDAO.getAllRooms();
+    public void getAllByFloorTest() throws SQLException {
+        List<Room> rooms = roomDAO.getAllByFloor(28);
         assertTrue(rooms.size() > 0);
+        System.out.println(rooms);
     }
 
     @Test
-    public void getRoomsByFloorTest() throws SQLException { List<Room> rooms = roomDAO.getRoomsByFloor(1, 1);
-       assertTrue(rooms.contains(room115));
+    public void getByIdTest() throws SQLException {
+        Room room = roomDAO.getById(118);
+        System.out.println(room);
     }
 
     @Test
-    public void removeRoomByIdTest() throws SQLException {
-        roomDAO.removeRoomById(115, 1);
-        List<Room> rooms = roomDAO.getAllRooms();
-        assertFalse(rooms.contains(room115));
+    public void updateTest() throws SQLException {
+        Room update = new Room(118, 20, 28, "0", "0", "100", "100");
+        Integer returned = roomDAO.update(update);
+        System.out.println(returned);
+    }
+
+    @Test
+    public void removeByIdTest() throws SQLException {
+        boolean isDeleted = roomDAO.removeById(118);
+        assertTrue(isDeleted);
     }
 }

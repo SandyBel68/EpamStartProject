@@ -6,11 +6,9 @@ import floor.FloorDAOImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.sql.SQLException;
-import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FloorDAOImplTest {
     private static FloorDAO floorDAO;
@@ -19,34 +17,39 @@ public class FloorDAOImplTest {
     @BeforeAll
     public static void init() {
         floorDAO = FloorDAOImpl.getInstance();
-        floor25 = new Floor(25, 1, "40", "40");
+        floor25 = new Floor(25, 1, "400", "400");
     }
 
     @Test
-    public void addFloorTest() throws SQLException {
-        floorDAO.addFloor(floor25);
-        List<Floor> floors = floorDAO.getAllFloors();
-        assertTrue(floors.contains(floor25));
+    public void addTest() throws SQLException {
+        Integer id = floorDAO.add(floor25);
+        assertTrue(id > 0);
     }
 
     @Test
-    public void getAllFloorsTest() throws SQLException {
-        List<Floor> floors = floorDAO.getAllFloors();
-        assertTrue(floors.size() > 0);
+    public void getAllByBuildingAndNumberTest() throws SQLException {
+        Integer idBuilding = 1;
+        Integer floorNumber = 25;
+        Floor returned = floorDAO.getByBuildingAndNumber(idBuilding, floorNumber);
+        assertTrue(returned.getIdFloor().equals(floor25.getIdFloor()));;
     }
 
     @Test
-    public void getFloorByIDTest() throws SQLException {
-        Floor floorEx25 = floorDAO.getFloorById(25,1);
-        assertTrue(floorEx25.equals(floor25));
+    public void getByIDTest() throws SQLException {
+        Floor floorEx25 = floorDAO.getById(27);
+        assertTrue(floorEx25.getIdFloor().equals(floor25.getIdFloor()));
     }
 
     @Test
-    public void removeFloorByIdTest() throws SQLException {
-        floorDAO.removeFloorById(25, 1);
-        List<Floor> floors = floorDAO.getAllFloors();
-        assertFalse(floors.contains(floor25));
+    public void updateTest() throws SQLException{
+        Floor update = new Floor(27,25,1, "1400", "600");
+        Integer returned = floorDAO.update(update);
+        assertTrue(returned > 0);
     }
 
-
+    @Test
+    public void removeByIdTest() throws SQLException {
+        boolean isDeleted = floorDAO.removeById(27);
+        assertTrue(isDeleted);
+    }
 }

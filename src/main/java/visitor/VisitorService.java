@@ -18,7 +18,7 @@ public class VisitorService {
         return instance;
     }
 
-    public List<Visitor> getVisitors() {
+    public List<Visitor> getAllVisitors() {
         List<Visitor> visitorList = null;
         try {
             visitorList = visitorDAO.getAll();

@@ -15,3 +15,4 @@ INSERT INTO `room` (`numberRoom`, `idfloor`, `x1`,`x2`, `y1`,`y2`) VALUES (
  105, (SELECT idfloor FROM floor WHERE numberFloor = 1 AND maxYsize = '600'AND maxXsize = '1300'), '400', '400', '1300', '600');
 
 INSERT INTO `visitor` (`visitorname`) VALUES ('John Bell');
+INSERT INTO `visitor` (`visitorname`) VALUES ('Kate White');

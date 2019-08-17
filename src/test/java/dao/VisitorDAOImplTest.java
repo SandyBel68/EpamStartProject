@@ -26,16 +26,16 @@ public class VisitorDAOImplTest {
         assertTrue(visitors.size() > 0);
         assertTrue(visitors.contains(semen));
 
-        List<Visitor> visitorsByName = visitorDAO.getByName("Semen");
-        assertTrue(visitorsByName.contains(semen));
+        Visitor visitorByName = visitorDAO.getByName("Semen");
+        assertEquals(visitorByName.getVisitorName(), name);
 
         String newName = "Mike";
         Visitor update = new Visitor(idVisitor, newName);
         Integer returnedId = visitorDAO.update(update);
         assertEquals(returnedId, idVisitor);
 
-        List<Visitor> visitorsByNewName = visitorDAO.getByName(newName);
-        assertTrue(visitorsByNewName.contains(update));
+        Visitor visitorByNewName = visitorDAO.getByName(newName);
+        assertEquals(visitorByNewName.getVisitorName(), newName);
 
         boolean isDeleted = visitorDAO.deleteById(idVisitor);
         assertTrue(isDeleted);

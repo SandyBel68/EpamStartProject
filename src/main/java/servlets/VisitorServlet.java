@@ -1,7 +1,8 @@
-package visitor;
+package servlets;
 
-import movetracker.MoveTracker;
 import movetracker.StatisticsService;
+import visitor.Visitor;
+import visitor.VisitorService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,14 +15,13 @@ import java.util.List;
 @WebServlet(name = "VisitorServlet", value = "/visitor")
 public class VisitorServlet extends HttpServlet {
     private static VisitorService visitorService = VisitorService.getInstance();
-    private static StatisticsService visitorStatistics = StatisticsService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException{
         List<Visitor> allVisitors = visitorService.getAllVisitors();
         req.setAttribute("listOfVisitors", allVisitors);
-        req.getRequestDispatcher("visitor.jsp").forward(req, resp);
+        req.getRequestDispatcher("/visitor.jsp").forward(req, resp);
     }
 
     @Override

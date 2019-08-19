@@ -107,6 +107,24 @@ public class VisitorDAOImpl implements VisitorDAO {
     }
 
     @Override
+    public Visitor getById(Integer idVisitor) throws SQLException {
+        Visitor visitorByName = new Visitor();
+        try (Connection connection = DATASOURCE.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM visitor WHERE idvisitor = ?")) {
+            preparedStatement.setInt(1, idVisitor);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    visitorByName = new Visitor(
+                            resultSet.getInt("idVisitor"),
+                            resultSet.getString("visitorName")
+                    );
+                }
+            }
+        }
+        return visitorByName;
+    }
+
+    @Override
     public Integer update(Visitor visitor) throws SQLException {
         try (Connection connection = DATASOURCE.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("UPDATE visitor SET visitorname = ? WHERE idvisitor = ?")) {

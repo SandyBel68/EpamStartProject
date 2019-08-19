@@ -58,6 +58,52 @@ public class RoomDAOImpl implements RoomDAO {
     }
 
     @Override
+    public List<Room> getAll() throws SQLException {
+        List<Room> allRooms = new ArrayList<>();
+        try (Connection connection = DATASOURCE.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM room")) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Room room = new Room(
+                            resultSet.getInt("idRoom"),
+                            resultSet.getInt("numberRoom"),
+                            resultSet.getInt("idFloor"),
+                            resultSet.getString("x1"),
+                            resultSet.getString("y1"),
+                            resultSet.getString("x2"),
+                            resultSet.getString("y2")
+                    );
+                    allRooms.add(room);
+                }
+            }
+        }
+        return allRooms;
+    }
+
+    @Override
+    public Room getByNumber(Integer numberRoom) throws SQLException {
+        Room room = new Room();
+        try (Connection connection = DATASOURCE.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM room WHERE numberRoom = ?")) {
+            preparedStatement.setInt(1, numberRoom);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    room = new Room(
+                            resultSet.getInt("idRoom"),
+                            resultSet.getInt("numberRoom"),
+                            resultSet.getInt("idFloor"),
+                            resultSet.getString("x1"),
+                            resultSet.getString("y1"),
+                            resultSet.getString("x2"),
+                            resultSet.getString("y2")
+                    );
+                }
+            }
+        }
+        return room;
+    }
+
+    @Override
     public Integer add(Room room) throws SQLException {
         Integer id;
         try (Connection connection = DATASOURCE.getConnection();

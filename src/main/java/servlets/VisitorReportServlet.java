@@ -1,4 +1,7 @@
-package movetracker;
+package servlets;
+
+import movetracker.StatisticsService;
+import report.ReportDocument;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,13 +12,13 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "VisitorReport", value = "/visitorReport")
-public class VisitorReport extends HttpServlet {
+public class VisitorReportServlet extends HttpServlet {
     private static StatisticsService visitorStatistics = StatisticsService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        List<MoveTracker> listByVisitor = visitorStatistics.getListByVisitor(String.valueOf(req.getAttribute("visitorName")));
+        List<ReportDocument> listByVisitor = visitorStatistics.getListByVisitorReport(String.valueOf(req.getAttribute("visitorName")));
         req.setAttribute("listByVisitor",listByVisitor);
         req.getRequestDispatcher("/visitorReport.jsp").forward(req, resp);
     }

@@ -1,4 +1,4 @@
-package movetracker;
+package servlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +9,6 @@ import java.io.IOException;
 
 @WebServlet(name = "StartPageServlet", value = "/")
 public class StartPageServlet extends HttpServlet {
-    private static StatisticsService visitorStatistics = StatisticsService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)

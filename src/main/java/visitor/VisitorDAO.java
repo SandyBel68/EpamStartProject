@@ -13,4 +13,6 @@ public interface VisitorDAO {
     boolean deleteById(Integer idVisitor) throws SQLException;
 
     Visitor getByName(String name) throws SQLException;
+
+    Visitor getById(Integer idVisitor) throws SQLException;
 }

@@ -1,9 +1,5 @@
 package movetracker;
 
-import building.BuildingDAO;
-import building.BuildingDAOImpl;
-import floor.FloorDAO;
-import floor.FloorDAOImpl;
 import report.ReportDocument;
 import room.Room;
 import room.RoomDAO;
@@ -44,6 +40,31 @@ public class StatisticsService {
             //TODO logging
         }
         return moveListRoom;
+    }
+
+    public List<ReportDocument> getListByRoomFloorBuildingReport(String address, Integer numberFloor, Integer numberRoom) {
+        List<ReportDocument> reportDocumentList = new ArrayList<>();
+        try {
+            Room selected = roomDAO.getByNumber(numberRoom);
+            Integer idSelected = selected.getIdRoom();
+            List<MoveTracker> listMove = moveDao.getByRoomId(idSelected);
+            for (int i = 0; i < listMove.size(); i++) {
+                ReportDocument report = new ReportDocument();
+                report.setNumberRoom(numberRoom);
+                report.setStart(listMove.get(i).getTimeStart());
+                report.setFinish(listMove.get(i).getTimeFinish());
+                Integer idVisitor = listMove.get(i).getIdVisitor();
+                Visitor visitor = visitorDAO.getById(idVisitor);
+                String visitorName = visitor.getVisitorName();
+                report.setVisitorName(visitorName);
+                report.setNumberFloor(numberFloor);
+                report.setAddress(address);
+                reportDocumentList.add(report);
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        return reportDocumentList;
     }
 
     public List<ReportDocument> getListByRoomReport(Integer numberRoom) {

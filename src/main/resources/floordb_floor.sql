@@ -30,6 +30,7 @@ CREATE TABLE `floor` (
   `maxXsize` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idFloor`),
   KEY `idBuilding_idx` (`idbuilding`),
+  UNIQUE KEY `numberFloor_UNIQUE` (`numberFloor`),
   CONSTRAINT `idBuilding` FOREIGN KEY (`idbuilding`) REFERENCES `building` (`idbuilding`)
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

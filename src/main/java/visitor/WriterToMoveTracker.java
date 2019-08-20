@@ -29,7 +29,7 @@ public class WriterToMoveTracker {
         VisitorRouteService visitorRouteService = new VisitorRouteService();
 
 
-        Integer steps = 100;
+        Integer steps = 10;
         visitorRouteService.routeGenerator(steps, visitor);
         VisitorRouteService.MyThread thread = new VisitorRouteService.MyThread();
         thread.start();
@@ -40,6 +40,7 @@ public class WriterToMoveTracker {
             LocalDateTime tempStart = VisitorRouteService.start.get(i);
             LocalDateTime tempFinish = VisitorRouteService.finish.get(i);
             Integer roomId = getVisitorLocation(roomDAO.getAllByFloor(29), tempX, tempY);
+            System.out.println(visitor.getIdVisitor() + " " + roomId + " " + tempStart + " " + tempFinish);
             moveDAO.add(new MoveTracker(visitor.getIdVisitor(), roomId, tempStart, tempFinish));
         }
 

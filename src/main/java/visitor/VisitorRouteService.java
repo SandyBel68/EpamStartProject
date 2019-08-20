@@ -46,7 +46,7 @@ public class VisitorRouteService {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            System.out.println(rooms);
+
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             LocalDateTime temp = LocalDateTime.now();
             System.out.println(tempHumanLocationX1 + " " + tempHumanLocationY1 + " Room number: " + getVisitorLocation(rooms, tempHumanLocationX1, tempHumanLocationY1)
@@ -54,23 +54,21 @@ public class VisitorRouteService {
             start.add(temp);
             finish.add(temp);
             try {
-                Thread.sleep(5 * 1000);
+                Thread.sleep(1 * 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-            for (int i = 0; i < 60; i++) {
-                if (i % 10 == 0) {
+            for (int i = 0; i < 10; i++) {
                     Integer roomId = getVisitorLocation(rooms, routX.get(i), routY.get(i));
                     System.out.println(routX.get(i) + " " + routY.get(i) + " Room number: " + roomId + " time: " + dateTimeFormatter.format(LocalDateTime.now()));
                     start.add(LocalDateTime.now());
                     try {
-                        Thread.sleep(5 * 1000);
+                        Thread.sleep(1 * 1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     finish.add(LocalDateTime.now());
-                }
             }
             System.out.println(start.toString());
             System.out.println(finish.toString());

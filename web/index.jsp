@@ -22,19 +22,22 @@
                 <h1>
                     Glad to see you in our location app!
                 </h1>
+                <h2>
+                    Choose the option from the list below
+                </h2>
             </div>
-        <p>
-            Choose the option from the list below.
-        </p>
-            <form action="/addVisitor" method="get">
-                <input class="btn btn-primary btn-lg btn-block" type="submit" value="Create Visitor"/>
-            </form>
-            <form action="/visitor" method="get">
-                <input class="btn btn-success btn-lg btn-block" type="submit" value="Get report by visitor"/>
-            </form>
-            <form action="/room" method="get">
-                <input class="btn btn-warning btn-lg btn-block" type="submit" value="Get report by room"/>
-            </form>
+        <form action="/addVisitor" method="get">
+            <input class="btn btn-primary btn-lg btn-block" type="submit" value="Create new visitor"/>
+        </form>
+<%--        <form action="/startRoute" method="get">--%>
+<%--            <input class="btn btn-primary btn-lg btn-block" type="submit" value="Start new route"/>--%>
+<%--        </form>--%>
+        <form action="/visitor" method="get">
+            <input class="btn btn-success btn-lg btn-block" type="submit" value="Get report by visitor"/>
+        </form>
+        <form action="/room" method="get">
+            <input class="btn btn-warning btn-lg btn-block" type="submit" value="Get report by room"/>
+        </form>
     </div>
 </div>
 </body>

@@ -1,6 +1,9 @@
 package visitor;
 
 import floor.Floor;
+import movetracker.MoveTracker;
+import movetracker.MoveTrackerDAOImpl;
+import org.w3c.dom.ls.LSOutput;
 import room.Room;
 import room.RoomDAO;
 import room.RoomDAOImpl;
@@ -17,8 +20,11 @@ import static visitor.GetVisitorLocationService.getVisitorLocation;
 public class VisitorRouteService {
     private static Long tempHumanLocationX1;
     private static Long tempHumanLocationY1;
+    public static MoveTrackerDAOImpl instance = MoveTrackerDAOImpl.getInstance();
     static List<Long> routX = new ArrayList<>();
     static List<Long> routY = new ArrayList<>();
+    static List<LocalDateTime> start = new ArrayList<>();
+    static List<LocalDateTime> finish = new ArrayList<>();
     private static Floor tempFloor;
     private static int visitorStep = 100+(int)(Math.random()*50);
     private static RoomDAO roomDAO = RoomDAOImpl.getInstance();
@@ -26,11 +32,11 @@ public class VisitorRouteService {
 
     public static class MyThread extends Thread{
         public void run(){
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-
-            System.out.println(tempHumanLocationX1 + " " + tempHumanLocationY1 + " Room number: " + getVisitorLocation(rooms, tempHumanLocationX1, tempHumanLocationY1) + " time: " + dateTimeFormatter.format(LocalDateTime.now()));
-
+            LocalDateTime temp = LocalDateTime.now();
+            System.out.println(tempHumanLocationX1 + " " + tempHumanLocationY1 + " Room number: " + getVisitorLocation(rooms, tempHumanLocationX1, tempHumanLocationY1) + " time: " + dateTimeFormatter.format(temp));
+            start.add(temp);
+            finish.add(temp);
             try {
                 Thread.sleep(5 * 1000);
             } catch (InterruptedException e) {
@@ -39,14 +45,19 @@ public class VisitorRouteService {
 
             for (int i = 0; i < 60; i++) {
                 if (i % 10 == 0) {
-                    System.out.println(routX.get(i) + " " + routY.get(i) + " Room number: " + getVisitorLocation(rooms, routX.get(i), routY.get(i)) + " time: " + dateTimeFormatter.format(LocalDateTime.now()));
+                    Integer roomId = getVisitorLocation(rooms, routX.get(i), routY.get(i));
+                    System.out.println(routX.get(i) + " " + routY.get(i) + " Room number: " + roomId + " time: " + dateTimeFormatter.format(LocalDateTime.now()));
+                    start.add(LocalDateTime.now());
                     try {
                         Thread.sleep(5 * 1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    finish.add(LocalDateTime.now());
                 }
             }
+            System.out.println(start.toString());
+            System.out.println(finish.toString());
         }
     }
 
@@ -59,9 +70,7 @@ public class VisitorRouteService {
         }
     }
 
-    public static void routeGenerator(int n){
-        Long tempX = tempHumanLocationX1;
-        Long tempY = tempHumanLocationY1;
+    public static void routeGenerator(int n, Visitor visitor){
         for (int i = 0; i < n; i++) {
             int vector = (int)(Math.random()*4);
             int temp = vector % 2;
@@ -108,11 +117,12 @@ public class VisitorRouteService {
         tempHumanLocationX1 = (long)(Math.random()*600);
         tempHumanLocationY1 = (long)(Math.random()*300);
         tempFloor = new Floor(1, 1, "600", "1300");
-        routeGenerator(60);
+        routeGenerator(60, new Visitor("FirstVisitor"));
 
 
         MyThread myThread = new MyThread();
         myThread.start();
+
     }
 
 }

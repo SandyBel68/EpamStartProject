@@ -4,6 +4,9 @@
 <html>
 <head>
     <title>Visitors</title>
+    <style>
+        <%@include file="/css/bootstrap.min.css" %>
+    </style>
 </head>
 <body class="p-3 mb-2 bg-info text-white">
 <div>

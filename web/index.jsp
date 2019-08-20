@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: norri
+  Date: 20.08.2019
+  Time: 13:40
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -16,10 +23,12 @@
                     Glad to see you in our location app!
                 </h1>
             </div>
-<%--            <form action="sign_in" method="get">--%>
-<%--                <input class="btn btn-primary btn-lg btn-block" type="submit" value="Sign In"/>--%>
-<%--            </form>--%>
-<%--        START ROUTE button --%>
+        <p>
+            Choose the option from the list below.
+        </p>
+            <form action="/addVisitor" method="get">
+                <input class="btn btn-primary btn-lg btn-block" type="submit" value="Create Visitor"/>
+            </form>
             <form action="/visitor" method="get">
                 <input class="btn btn-success btn-lg btn-block" type="submit" value="Get report by visitor"/>
             </form>

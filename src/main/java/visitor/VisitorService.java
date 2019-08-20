@@ -28,4 +28,16 @@ public class VisitorService {
         }
         return visitorList;
     }
+
+    public Integer addVisitor(String visitorName){
+        Integer visitorId  = null;
+        Visitor visitorToAdd = new Visitor(visitorName);
+        try {
+            visitorId = visitorDAO.add(visitorToAdd);
+        } catch (SQLException e) {
+            System.err.println(e);
+            //TODO logging
+        }
+        return visitorId;
+    }
 }

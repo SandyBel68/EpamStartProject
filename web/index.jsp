@@ -18,10 +18,10 @@
 <%---------------------------content--%>
 <div class="container">
     <div>
-            <div class="page-header">
-                <h1>
-                    Glad to see you in our location app!
-                </h1>
+        <div class="page-header">
+            <h1>
+                Glad to see you in our location app!
+            </h1>
                 <h2>
                     Choose the option from the list below
                 </h2>
@@ -29,9 +29,9 @@
         <form action="/addVisitor" method="get">
             <input class="btn btn-primary btn-lg btn-block" type="submit" value="Create new visitor"/>
         </form>
-<%--        <form action="/startRoute" method="get">--%>
-<%--            <input class="btn btn-primary btn-lg btn-block" type="submit" value="Start new route"/>--%>
-<%--        </form>--%>
+        <form action="/addRoute" method="get">
+            <input class="btn btn-primary btn-lg btn-block" type="submit" value="Start new route"/>
+        </form>
         <form action="/visitor" method="get">
             <input class="btn btn-success btn-lg btn-block" type="submit" value="Get report by visitor"/>
         </form>

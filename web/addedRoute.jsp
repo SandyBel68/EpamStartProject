@@ -10,28 +10,15 @@
 
 <html>
 <head>
-    <title>Rooms</title>
+    <title>Route</title>
     <style>
         <%@include file="/css/bootstrap.min.css" %>
     </style>
 </head>
 <body class="p-3 mb-2 bg-info text-white">
 <div>
-    <h2 class="text-center">Available rooms </h2>
-
-        <tr>
-            <th>Room number</th>
-        </tr>
-    </br>
-
-            <form action="room" method="post">
-                <select name="roomNumber">
-                    <c:forEach var ="allRooms" items="${allRooms}">
-                    <option value='${allRooms.numberRoom}'>${allRooms.numberRoom}</option>
-                    </c:forEach>
-                </select>
-                <input type="submit" value="Submit">
-            </form>
+    <h2 class="text-center">New route was added! </h2>
+    <h3 class="text-center">Now get back to the start page to check the reports...</h3>
     <form action="/index" method="post">
         <input class="btn btn-success btn-lg btn-block" type="submit" value="Go back to start page"/>
     </form>

@@ -31,6 +31,7 @@ CREATE TABLE `room` (
   `x2` varchar(45) DEFAULT NULL,
   `y2` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idroom`),
+  UNIQUE KEY `numberRoom_UNIQUE` (`numberRoom`),
   KEY `idFloor_idx` (`idfloor`),
   CONSTRAINT `idFloor` FOREIGN KEY (`idfloor`) REFERENCES `floor` (`idfloor`)
 ) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

@@ -89,22 +89,39 @@ public class VisitorDAOImpl implements VisitorDAO {
     }
 
     @Override
-    public List<Visitor> getByName(String name) throws SQLException {
-        List<Visitor> visitorsByName = new ArrayList<>();
+    public Visitor getByName(String name) throws SQLException {
+        Visitor visitorByName = new Visitor();
         try (Connection connection = DATASOURCE.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM visitor WHERE visitorname = ?")) {
             preparedStatement.setString(1, name);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    Visitor visitor = new Visitor(
+                    visitorByName = new Visitor(
                             resultSet.getInt("idVisitor"),
                             resultSet.getString("visitorName")
                     );
-                    visitorsByName.add(visitor);
                 }
             }
         }
-        return visitorsByName;
+        return visitorByName;
+    }
+
+    @Override
+    public Visitor getById(Integer idVisitor) throws SQLException {
+        Visitor visitorByName = new Visitor();
+        try (Connection connection = DATASOURCE.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM visitor WHERE idvisitor = ?")) {
+            preparedStatement.setInt(1, idVisitor);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    visitorByName = new Visitor(
+                            resultSet.getInt("idVisitor"),
+                            resultSet.getString("visitorName")
+                    );
+                }
+            }
+        }
+        return visitorByName;
     }
 
     @Override

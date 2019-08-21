@@ -10,28 +10,28 @@
 
 <html>
 <head>
-    <title>Visitors</title>
+    <title>Route</title>
     <style>
         <%@include file="/css/bootstrap.min.css" %>
     </style>
 </head>
 <body class="p-3 mb-2 bg-info text-white">
 <div>
-    <h2 class="text-center">Available visitors </h2>
+    <h2 class="text-center">Chose a visitor to start the route </h2>
 
-        <tr>
-            <th>Visitor name</th>
-        </tr>
+    <tr>
+        <th>Visitor names</th>
+    </tr>
     </br>
 
-            <form action="visitor" method="post">
-                <select name="visitorName">
-                    <c:forEach var ="allVisitors" items="${listOfVisitors}">
-                    <option value='${allVisitors.visitorName}'>${allVisitors.visitorName}</option>
-                    </c:forEach>
-                </select>
-                <input type="submit" value="Submit">
-            </form>
+    <form action="/addRoute" method="post">
+        <select name="visitorName">
+            <c:forEach var="allVisitors" items="${allVisitors}">
+                <option value='${allVisitors.visitorName}'>${allVisitors.visitorName}</option>
+            </c:forEach>
+        </select>
+        <input type="submit" value="Submit">
+    </form>
 
     <form action="/index" method="post">
         <input class="btn btn-success btn-lg btn-block" type="submit" value="Go back to start page"/>

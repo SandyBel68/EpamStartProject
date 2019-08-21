@@ -18,7 +18,7 @@ public class VisitorService {
         return instance;
     }
 
-    public List<Visitor> getVisitors() {
+    public List<Visitor> getAllVisitors() {
         List<Visitor> visitorList = null;
         try {
             visitorList = visitorDAO.getAll();
@@ -27,5 +27,17 @@ public class VisitorService {
             //TODO logging
         }
         return visitorList;
+    }
+
+    public Integer addVisitor(String visitorName){
+        Integer visitorId  = null;
+        Visitor visitorToAdd = new Visitor(visitorName);
+        try {
+            visitorId = visitorDAO.add(visitorToAdd);
+        } catch (SQLException e) {
+            System.err.println(e);
+            //TODO logging
+        }
+        return visitorId;
     }
 }

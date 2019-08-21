@@ -25,7 +25,8 @@ DROP TABLE IF EXISTS `visitor`;
 CREATE TABLE `visitor` (
   `idvisitor` int(11) NOT NULL AUTO_INCREMENT,
   `visitorname` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idvisitor`)
+  PRIMARY KEY (`idvisitor`),
+    UNIQUE KEY `visitorname_UNIQUE` (`visitorname`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

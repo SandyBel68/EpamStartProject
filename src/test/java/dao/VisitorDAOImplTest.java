@@ -1,9 +1,8 @@
 package dao;
 
+import dao.impl.VisitorDAOImpl;
 import org.junit.jupiter.api.Test;
-import visitor.Visitor;
-import visitor.VisitorDAO;
-import visitor.VisitorDAOImpl;
+import entities.Visitor;
 
 import java.sql.SQLException;
 import java.util.List;

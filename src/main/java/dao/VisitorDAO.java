@@ -1,4 +1,6 @@
-package visitor;
+package dao;
+
+import entities.Visitor;
 
 import java.sql.SQLException;
 import java.util.List;

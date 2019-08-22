@@ -19,7 +19,8 @@
 <div>
     <h2 class="text-center">New route was added! </h2>
     <h3 class="text-center">Now get back to the start page to check the reports...</h3>
-    <form action="/index" method="post">
+    <p style="text-align:center;"><img src="/img/b1_f1_raw.jpg" alt="map"></p>
+    <form action="/" method="post">
         <input class="btn btn-success btn-lg btn-block" type="submit" value="Go back to start page"/>
     </form>
 </div>

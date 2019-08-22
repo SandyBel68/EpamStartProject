@@ -1,6 +1,8 @@
-package building;
+package dao.impl;
 
 import common.DataSourceInit;
+import dao.BuildingDAO;
+import entities.Building;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;

@@ -1,4 +1,6 @@
-package building;
+package dao;
+
+import entities.Building;
 
 import java.sql.SQLException;
 import java.util.List;

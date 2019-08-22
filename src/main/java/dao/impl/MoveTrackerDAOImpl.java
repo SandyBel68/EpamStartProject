@@ -1,6 +1,8 @@
-package movetracker;
+package dao.impl;
 
 import common.DataSourceInit;
+import dao.MoveTrackerDAO;
+import entities.MoveTracker;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;

@@ -1,11 +1,9 @@
 package dao;
 
-import building.Building;
-import building.BuildingDAO;
-import building.BuildingDAOImpl;
-import floor.Floor;
-import floor.FloorDAO;
-import floor.FloorDAOImpl;
+import dao.impl.BuildingDAOImpl;
+import dao.impl.FloorDAOImpl;
+import entities.Building;
+import entities.Floor;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;

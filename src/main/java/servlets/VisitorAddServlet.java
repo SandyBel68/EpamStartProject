@@ -1,7 +1,7 @@
 package servlets;
 
-import visitor.Visitor;
-import visitor.VisitorService;
+import entities.Visitor;
+import service.VisitorService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

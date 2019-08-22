@@ -1,10 +1,7 @@
 package servlets;
 
-import movetracker.StatisticsService;
-import room.Room;
-import room.RoomService;
-import visitor.Visitor;
-import visitor.VisitorService;
+import entities.Room;
+import service.RoomService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

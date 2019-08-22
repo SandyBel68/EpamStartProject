@@ -1,21 +1,16 @@
 package dao;
 
-import building.Building;
-import building.BuildingDAO;
-import building.BuildingDAOImpl;
-import floor.Floor;
-import floor.FloorDAO;
-import floor.FloorDAOImpl;
-import movetracker.MoveTracker;
-import movetracker.MoveTrackerDAO;
-import movetracker.MoveTrackerDAOImpl;
+import dao.impl.BuildingDAOImpl;
+import dao.impl.FloorDAOImpl;
+import dao.impl.MoveTrackerDAOImpl;
+import dao.impl.RoomDAOImpl;
+import dao.impl.VisitorDAOImpl;
+import entities.Building;
+import entities.Floor;
+import entities.MoveTracker;
 import org.junit.jupiter.api.Test;
-import room.Room;
-import room.RoomDAO;
-import room.RoomDAOImpl;
-import visitor.Visitor;
-import visitor.VisitorDAO;
-import visitor.VisitorDAOImpl;
+import entities.Room;
+import entities.Visitor;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;

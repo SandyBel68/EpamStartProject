@@ -2,9 +2,9 @@ package visitorLocation;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import room.Room;
-import room.RoomDAO;
-import room.RoomDAOImpl;
+import entities.Room;
+import dao.RoomDAO;
+import dao.impl.RoomDAOImpl;
 
 import java.sql.SQLException;
 import java.util.List;

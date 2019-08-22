@@ -1,7 +1,8 @@
 package movetracker;
 
 import org.junit.jupiter.api.Test;
-import report.ReportDocument;
+import common.ReportDocument;
+import service.StatisticsService;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

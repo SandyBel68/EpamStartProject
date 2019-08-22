@@ -32,7 +32,7 @@
                 </select>
                 <input type="submit" value="Submit">
             </form>
-    <form action="/index" method="post">
+    <form action="/" method="post">
         <input class="btn btn-success btn-lg btn-block" type="submit" value="Go back to start page"/>
     </form>
 </div>

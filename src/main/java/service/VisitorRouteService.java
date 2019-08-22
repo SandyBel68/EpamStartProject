@@ -1,9 +1,9 @@
-package visitor;
+package service;
 
-import floor.Floor;
-import room.Room;
-import room.RoomDAO;
-import room.RoomDAOImpl;
+import entities.Floor;
+import entities.Room;
+import dao.RoomDAO;
+import dao.impl.RoomDAOImpl;
 
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import static visitor.GetVisitorLocationService.getVisitorLocation;
+import static service.GetVisitorLocationService.getVisitorLocation;
 
 public class VisitorRouteService {
     private static Long tempHumanLocationX1;

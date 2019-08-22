@@ -1,7 +1,7 @@
 package servlets;
 
-import movetracker.StatisticsService;
-import report.ReportDocument;
+import service.StatisticsService;
+import common.ReportDocument;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

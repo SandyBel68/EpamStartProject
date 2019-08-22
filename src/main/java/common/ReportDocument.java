@@ -1,4 +1,4 @@
-package report;
+package common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

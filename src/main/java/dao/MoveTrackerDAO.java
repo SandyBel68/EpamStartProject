@@ -1,4 +1,6 @@
-package movetracker;
+package dao;
+
+import entities.MoveTracker;
 
 import java.sql.SQLException;
 import java.util.List;

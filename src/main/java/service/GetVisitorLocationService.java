@@ -1,7 +1,6 @@
-package visitor;
+package service;
 
-import org.w3c.dom.ls.LSOutput;
-import room.Room;
+import entities.Room;
 
 import java.util.List;
 

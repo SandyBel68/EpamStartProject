@@ -1,7 +1,8 @@
-package floor;
+package dao;
+
+import entities.Floor;
 
 import java.sql.SQLException;
-import java.util.List;
 
 public interface FloorDAO {
     Floor getByBuildingAndNumber(Integer idBuilding, Integer numberFloor) throws SQLException;

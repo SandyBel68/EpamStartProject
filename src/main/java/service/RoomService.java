@@ -1,4 +1,8 @@
-package room;
+package service;
+
+import dao.RoomDAO;
+import dao.impl.RoomDAOImpl;
+import entities.Room;
 
 import java.sql.SQLException;
 import java.util.List;

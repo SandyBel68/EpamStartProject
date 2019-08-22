@@ -25,18 +25,7 @@
             <c:forEach var="allVisitors" items="${allVisitors}">
                 <option value='${allVisitors.visitorName}'>${allVisitors.visitorName}</option>
             </c:forEach>
-        </select>
-        <b> Building </b>
-        <select name="address">
-            <c:forEach var="allBuildings" items="${allBuildings}">
-                <option value='${allBuildings.address}'>${allBuildings.address}</option>
-            </c:forEach>
-        </select>
-        <b> Floor number </b>
-        <select name="numberFloor">
-            <c:forEach var="allFloors" items="${allFloors}">
-                <option value='${allFloors.numberFloor}'>${allFloors.numberFloor}</option>
-            </c:forEach>
+
         </select>
         <input type="submit" value="Submit">
     </form>

@@ -1,6 +1,7 @@
 package servlets;
 
 import entities.Visitor;
+import lombok.extern.log4j.Log4j2;
 import service.VisitorService;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "VisitorAddServlet", value = "/addVisitor")
+@Log4j2
 public class VisitorAddServlet extends HttpServlet {
     private static VisitorService visitorService = VisitorService.getInstance();
 

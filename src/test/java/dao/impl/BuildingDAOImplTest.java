@@ -1,5 +1,6 @@
-package dao;
+package dao.impl;
 
+import dao.BuildingDAO;
 import dao.impl.BuildingDAOImpl;
 import entities.Building;
 import org.junit.jupiter.api.Test;

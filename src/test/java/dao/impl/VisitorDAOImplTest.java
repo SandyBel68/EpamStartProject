@@ -1,5 +1,6 @@
-package dao;
+package dao.impl;
 
+import dao.VisitorDAO;
 import dao.impl.VisitorDAOImpl;
 import org.junit.jupiter.api.Test;
 import entities.Visitor;

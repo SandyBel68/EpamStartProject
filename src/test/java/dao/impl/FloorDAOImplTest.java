@@ -1,5 +1,7 @@
-package dao;
+package dao.impl;
 
+import dao.BuildingDAO;
+import dao.FloorDAO;
 import dao.impl.BuildingDAOImpl;
 import dao.impl.FloorDAOImpl;
 import entities.Building;

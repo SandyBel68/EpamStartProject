@@ -1,5 +1,8 @@
-package dao;
+package dao.impl;
 
+import dao.BuildingDAO;
+import dao.FloorDAO;
+import dao.RoomDAO;
 import dao.impl.BuildingDAOImpl;
 import dao.impl.FloorDAOImpl;
 import dao.impl.RoomDAOImpl;

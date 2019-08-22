@@ -1,5 +1,7 @@
 package servlets;
 
+import entities.Building;
+import entities.Floor;
 import entities.Visitor;
 import service.BuildingService;
 import service.FloorService;
@@ -27,7 +29,11 @@ public class AddRouteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException{
         List<Visitor> allVisitors = visitorService.getAllVisitors();
+        List<Building> allBuildings = buildingService.getAllBuildings();
+        List<Floor> allFloors = floorService.getAllFloors();
         req.setAttribute("allVisitors", allVisitors);
+        req.setAttribute("allBuildings", allBuildings);
+        req.setAttribute("allFloors", allFloors);
         req.getRequestDispatcher("/addRoute.jsp").forward(req, resp);
     }
 
@@ -35,11 +41,9 @@ public class AddRouteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
         String visitorName = req.getParameter("visitorName");
-        try {
-            writerToMoveTrackerService.addVisitorInMoveTracker(visitorName, 1, "Zastavskaya 22");
-        } catch (SQLException e) {
-            System.err.println(e);
-        }
+        String address = req.getParameter("address");
+        Integer numberFloor = Integer.valueOf(req.getParameter("numberFloor"));
+            writerToMoveTrackerService.addVisitorInMoveTracker(visitorName, numberFloor, address);
         req.getRequestDispatcher("/addedRoute.jsp").forward(req, resp);
     }
 }

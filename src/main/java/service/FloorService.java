@@ -32,6 +32,4 @@ public class FloorService {
         }
         return FloorList;
     }
-
-//    public Integer addFloor(Integer )
 }

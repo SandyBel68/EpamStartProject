@@ -55,16 +55,19 @@ public class VisitorRouteService {
 
         for (int i = 0; i < 10; i++) {
             Integer roomId = getVisitorLocation(rooms, routX.get(i), routY.get(i));
-            System.out.println(routX.get(i) + " " + routY.get(i) + " Room number: " + roomId + " time: " + start + " " + finish);
 
         }
         System.out.println(start.toString());
         System.out.println(finish.toString());
+        System.out.println(routX);
+        System.out.println(routY);
     }
 
     public static void routeGenerator(int n, String name, Integer numberFloor, String address) {
         LocalDateTime tempTimeStart = LocalDateTime.now();
         LocalDateTime tempTimeFinish = tempTimeStart.plusMinutes(plusMin);
+        routY.clear();
+        routX.clear();
         start.add(tempTimeStart);
         finish.add(tempTimeFinish);
         for (int i = 0; i < n; i++) {
@@ -73,47 +76,30 @@ public class VisitorRouteService {
             plusMin += 3;
             switch (temp) {
                 case 0:
-                    if (tempHumanLocationX1 + visitorStep < Long.parseLong(tempFloor.getMaxXSize()) && (vector == 2)) {
-                        tempHumanLocationX1 += visitorStep;
-                        routX.add(tempHumanLocationX1);
-                        routY.add(tempHumanLocationY1);
-
-                    } else if ((tempHumanLocationX1 - visitorStep >= 0) && vector == 4) {
-                        tempHumanLocationX1 -= visitorStep;
-                        routX.add(tempHumanLocationX1);
-                        routY.add(tempHumanLocationY1);
-                    } else {
-                        routX.add(tempHumanLocationX1);
-                        routY.add(tempHumanLocationY1);
-                    }
+                    tempHumanLocationX1 = (tempHumanLocationX1 +visitorStep) %  Long.parseLong(tempFloor.getMaxXSize());
+                    tempHumanLocationY1 = (tempHumanLocationY1 +visitorStep) %  Long.parseLong(tempFloor.getMaxYSize());
+                    routX.add(tempHumanLocationX1);
+                    routY.add(tempHumanLocationY1);
                     tempTimeStart = tempTimeStart.plusMinutes(plusMin);
                     tempTimeFinish = tempTimeStart.plusMinutes(plusMin);
                     start.add(tempTimeStart);
                     finish.add(tempTimeFinish);
-                    System.out.println("time start: " + tempTimeStart);
-                    System.out.println("time finish: " + tempTimeFinish);
                     break;
 
                 case 1:
-
+                    tempHumanLocationX1 = Math.abs(tempHumanLocationX1 - visitorStep) %  Long.parseLong(tempFloor.getMaxXSize());
+                    tempHumanLocationY1 = Math.abs(tempHumanLocationY1 - visitorStep) %  Long.parseLong(tempFloor.getMaxYSize());
                     if (tempHumanLocationY1 + visitorStep < Long.parseLong(tempFloor.getMaxYSize()) && vector == 1) {
                         tempHumanLocationY1 += visitorStep;
-                        routY.add(tempHumanLocationY1);
-                        routX.add(tempHumanLocationX1);
                     } else if (tempHumanLocationY1 - visitorStep >= 0 && vector == 3) {
                         tempHumanLocationY1 -= visitorStep;
-                        routY.add(tempHumanLocationY1);
-                        routX.add(tempHumanLocationX1);
-                    } else {
-                        routX.add(tempHumanLocationX1);
-                        routY.add(tempHumanLocationY1);
                     }
+                    routX.add(tempHumanLocationX1);
+                    routY.add(tempHumanLocationY1);
                     tempTimeStart = tempTimeStart.plusMinutes(plusMin);
                     tempTimeFinish = tempTimeStart.plusMinutes(plusMin);
                     start.add(tempTimeStart);
                     finish.add(tempTimeFinish);
-                    System.out.println("time start: " + tempTimeStart);
-                    System.out.println("time finish: " + tempTimeFinish);
                     break;
             }
 

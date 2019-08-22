@@ -6,6 +6,7 @@ import floor.FloorDAO;
 import floor.FloorDAOImpl;
 import org.junit.jupiter.api.Test;
 import report.ReportDocument;
+import room.Room;
 import room.RoomDAO;
 import room.RoomDAOImpl;
 import visitor.VisitorDAO;
@@ -46,14 +47,15 @@ public class StatisticsServiceTest {
     public void addNewMoveTracker(){
         String name = "John Bell";
         WriterToMoveTrackerService writerToMoveTrackerService = WriterToMoveTrackerService.getInstance();
-
-
         try {
             writerToMoveTrackerService.addVisitorInMoveTracker(name, 1, "Zastavskaya 22");
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
+    public void addNewRoomTest(){
+        Room room = new Room(106, 29, "50", "100", "600", "400");
     }
 
 }

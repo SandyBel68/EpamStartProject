@@ -48,6 +48,8 @@ public class WriterToMoveTrackerService {
 
     public static void addVisitorInMoveTracker(String visitorName, Integer numberFloor, String address) throws SQLException {
 
+
+
         Building building = buildingDAO.getByAddress(address);
         System.out.println(building);
         Integer buildingId = building.getIdBuilding();
@@ -67,13 +69,13 @@ public class WriterToMoveTrackerService {
         System.out.println(routY);
         for (int i = 0; i < steps; i++) {
 
-            long tempX = routX.get(i);
+            long tempX = VisitorRouteService.routX.get(i);
             long tempY = VisitorRouteService.routY.get(i);
             LocalDateTime tempStart = null;
             LocalDateTime tempFinish = null;
 
             if(start.get(i) != null) {
-                 tempStart = VisitorRouteService.start.get(i);
+                tempStart = VisitorRouteService.start.get(i);
             }
             if(finish.get(i) != null) {
                 tempFinish = VisitorRouteService.finish.get(i);
@@ -87,8 +89,9 @@ public class WriterToMoveTrackerService {
             System.out.println(visitor.getIdVisitor() + " " + roomId + " " + tempStart + " " + tempFinish);
             moveDAO.add(new MoveTracker(visitorId, roomId, tempStart, tempFinish));
         }
-
+        routX.clear();
+        routY.clear();
+        start.clear();
+        finish.clear();
     }
-
-
 }

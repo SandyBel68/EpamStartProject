@@ -1,14 +1,31 @@
 package movetracker;
 
+import building.BuildingDAO;
+import building.BuildingDAOImpl;
+import floor.FloorDAO;
+import floor.FloorDAOImpl;
 import org.junit.jupiter.api.Test;
 import report.ReportDocument;
+import room.RoomDAO;
+import room.RoomDAOImpl;
+import visitor.VisitorDAO;
+import visitor.VisitorDAOImpl;
+import visitor.VisitorRouteService;
+import visitor.WriterToMoveTrackerService;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class StatisticsServiceTest {
     private static StatisticsService statisticsService = StatisticsService.getInstance();
+    private static WriterToMoveTrackerService instance = null;
+    private static VisitorDAO visitorDAO = VisitorDAOImpl.getInstance();
+    private static MoveTrackerDAO moveDAO = MoveTrackerDAOImpl.getInstance();
+    private static RoomDAO roomDAO = RoomDAOImpl.getInstance();
+    private static FloorDAO floorDAO = FloorDAOImpl.getInstance();
+    private static BuildingDAO buildingDAO = BuildingDAOImpl.getInstance();
 
     @Test
     public void getListByVisitorReportTest() {
@@ -23,4 +40,20 @@ public class StatisticsServiceTest {
         List<ReportDocument> list =  statisticsService.getListByRoomReport(number);
         assertTrue(list.size() > 0);
     }
+
+    @Test
+
+    public void addNewMoveTracker(){
+        String name = "John Bell";
+        WriterToMoveTrackerService writerToMoveTrackerService = WriterToMoveTrackerService.getInstance();
+
+
+        try {
+            writerToMoveTrackerService.addVisitorInMoveTracker(name, 1, "Zastavskaya 22");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

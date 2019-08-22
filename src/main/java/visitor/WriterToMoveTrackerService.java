@@ -13,11 +13,11 @@ import room.Room;
 import room.RoomDAO;
 import room.RoomDAOImpl;
 
-import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.List;
 
+
+import static visitor.GetVisitorLocationService.getVisitorLocation;
 import static visitor.VisitorRouteService.*;
 
 public class WriterToMoveTrackerService {
@@ -86,8 +86,10 @@ public class WriterToMoveTrackerService {
             System.out.println(visitor.getIdVisitor() + " " + roomId + " " + tempStart + " " + tempFinish);
             moveDAO.add(new MoveTracker(visitorId, roomId, tempStart, tempFinish));
         }
+//        routX.clear();
+//        routY.clear();
+//        start.clear();
+//        finish.clear();
 
     }
-
-
 }

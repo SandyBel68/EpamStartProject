@@ -16,6 +16,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import static visitor.GetVisitorLocationService.getVisitorLocation;
+
 
 public class VisitorRouteService {
     private static Long tempHumanLocationX1 = (long) (Math.random() * 600);
@@ -36,36 +38,37 @@ public class VisitorRouteService {
         this.tempFloor = floor;
     }
 
-    public static void myThread(){
-            try {
-                Integer floorId = tempFloor.getIdFloor();
-                rooms = roomDAO.getAllByFloor(floorId);
+    public static void myThread() {
+        try {
+            Integer floorId = tempFloor.getIdFloor();
+            rooms = roomDAO.getAllByFloor(floorId);
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-            LocalDateTime temp = LocalDateTime.now();
-            System.out.println("Temp human location: " + tempHumanLocationX1 + " " + tempHumanLocationY1 + " Room number: " + getVisitorLocation(rooms, tempHumanLocationX1, tempHumanLocationY1)
-                    + " time: " + dateTimeFormatter.format(temp));
-
-            for (int i = 0; i < 10; i++) {
-                Integer roomId = getVisitorLocation(rooms, routX.get(i), routY.get(i));
-                System.out.println(routX.get(i) + " " + routY.get(i) + " Room number: " + roomId + " time: " + start + " " + finish);
-
-            }
-            System.out.println(start.toString());
-            System.out.println(finish.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime temp = LocalDateTime.now();
+        System.out.println("Temp human location: " + tempHumanLocationX1 + " " + tempHumanLocationY1 + " Room number: " + getVisitorLocation(rooms, tempHumanLocationX1, tempHumanLocationY1)
+                + " time: " + dateTimeFormatter.format(temp));
+
+        for (int i = 0; i < 10; i++) {
+            Integer roomId = getVisitorLocation(rooms, routX.get(i), routY.get(i));
+            System.out.println(routX.get(i) + " " + routY.get(i) + " Room number: " + roomId + " time: " + start + " " + finish);
+
+        }
+        System.out.println(start.toString());
+        System.out.println(finish.toString());
+    }
 
     public static void routeGenerator(int n, String name, Integer numberFloor, String address) {
         for (int i = 0; i < n; i++) {
             int vector = (int) (Math.random() * 4);
             int temp = vector % 2;
-            LocalDateTime tempTime = LocalDateTime.now();
-            start.add(tempTime);
-            finish.add(tempTime);
+            LocalDateTime tempTimeStart = LocalDateTime.now();
+            LocalDateTime tempTimeFinish = tempTimeStart.plusMinutes(2);
+            start.add(tempTimeStart);
+            finish.add(tempTimeFinish);
             switch (temp) {
                 case 0:
                     if (tempHumanLocationX1 + visitorStep < Long.parseLong(tempFloor.getMaxXSize()) && (vector == 2)) {
@@ -81,9 +84,10 @@ public class VisitorRouteService {
                         routX.add(tempHumanLocationX1);
                         routY.add(tempHumanLocationY1);
                     }
-                    tempTime = tempTime.plusMinutes(3);
-                    start.add(tempTime);
-                    finish.add(tempTime.plusMinutes(3));
+                    tempTimeStart = tempTimeFinish;
+                    start.add(tempTimeStart);
+                    tempTimeFinish = tempTimeStart.plusMinutes(3);
+                    finish.add(tempTimeFinish);
                     break;
 
                 case 1:
@@ -100,9 +104,10 @@ public class VisitorRouteService {
                         routX.add(tempHumanLocationX1);
                         routY.add(tempHumanLocationY1);
                     }
-                    tempTime = tempTime.plusMinutes(3);
-                    start.add(tempTime);
-                    finish.add(tempTime.plusMinutes(3));
+                    tempTimeStart = tempTimeFinish;
+                    start.add(tempTimeStart);
+                    tempTimeFinish = tempTimeStart.plusMinutes(3);
+                    finish.add(tempTimeFinish);
                     break;
             }
 
@@ -110,33 +115,4 @@ public class VisitorRouteService {
     }
 
 
-    public static Integer getVisitorLocation(List<Room> roomList, long tempX1, long tempY1) {
-        return isContain(roomList, tempX1, tempY1);
-    }
-
-
-    public static Integer isContain(List<Room> roomList, long humanLocationX1, long humanLocationY1) {
-        for (Room r : roomList) {
-            try {
-                long tempX1 = Long.parseLong(r.getX1());
-                long tempY1 = Long.parseLong(r.getY1());
-                long tempX2 = Long.parseLong(r.getX2());
-                long tempY2 = Long.parseLong(r.getY2());
-
-                if ((humanLocationX1 >= tempX1 && humanLocationY1 >= tempY1) && (humanLocationX1 <= tempX2 && humanLocationY1 <= tempY2)) {
-                    return r.getNumberRoom();
-                }
-            } catch (NumberFormatException e) {
-                System.out.println(e + "11");
-                e.printStackTrace();
-
-            }
-        }
-        return null;
-    }
-
-    public static void main(String[] args) {
-        String visitorName = "John Bell";
-
-    }
 }

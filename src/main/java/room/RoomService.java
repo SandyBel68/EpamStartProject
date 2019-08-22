@@ -8,12 +8,13 @@ import java.net.Inet4Address;
 import java.sql.SQLException;
 import java.util.List;
 
-import static visitor.VisitorRouteService.isContain;
+import static visitor.GetVisitorLocationService.isContain;
+
 
 public class RoomService {
     private static RoomService instance = null;
-    private RoomDAO roomDAO;
-    private FloorDAO floorDAO;
+    private static RoomDAO roomDAO;
+    private static FloorDAO floorDAO;
 
     private RoomService(RoomDAO roomDAO, FloorDAO floorDAO) {
         this.floorDAO = floorDAO;
@@ -38,9 +39,11 @@ public class RoomService {
         return roomList;
     }
 
-    public Room addRoomOnTheFloor(Room newRoom, Floor floor) throws SQLException {
+    public static Room addRoomOnTheFloor(Room newRoom, Floor floor) throws SQLException {
         Long maxFloorSizeX = Long.valueOf(floor.getMaxXSize());
         Long maxFloorSizeY = Long.valueOf(floor.getMaxYSize());
+
+        System.out.println(floor);
 
         Integer leftDownPointX = Integer.parseInt(newRoom.getX1());
         Integer leftDownPointY = Integer.parseInt(newRoom.getY1());
@@ -52,7 +55,9 @@ public class RoomService {
         Integer rightDownPointY = leftUpperPointY;
 
         Integer floorId = floor.getIdFloor();
+        System.out.println(roomDAO);
         List<Room> roomList = roomDAO.getAllByFloor(floorId);
+
 
         if ((leftDownPointX < 0 || leftDownPointX > maxFloorSizeX) || (leftUpperPointX < 0 || leftUpperPointX > maxFloorSizeX) ||
                 (rightDownPointX < 0 || rightDownPointX > maxFloorSizeX) ||  (rightUpperPointX < 0 || rightUpperPointX > maxFloorSizeX)){

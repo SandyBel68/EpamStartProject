@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FloorDAOImpl implements FloorDAO {
     public static FloorDAOImpl instance;
@@ -37,12 +39,12 @@ public class FloorDAOImpl implements FloorDAO {
     public Integer add(Floor floor) throws SQLException {
         Integer id;
         try (Connection connection = DATASOURCE.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO floor (numberfloor, idbuilding, maxXsize, maxYsize) VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS)
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO floor (numberfloor, idbuilding, maxYsize, maxXsize) VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS)
         ) {
             preparedStatement.setInt(1, floor.getNumberFloor());
             preparedStatement.setInt(2, floor.getIdBuilding());
-            preparedStatement.setString(3, floor.getMaxXSize());
-            preparedStatement.setString(4, floor.getMaxYSize());
+            preparedStatement.setString(3, floor.getMaxYSize());
+            preparedStatement.setString(4, floor.getMaxXSize());
             preparedStatement.executeUpdate();
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
@@ -82,8 +84,8 @@ public class FloorDAOImpl implements FloorDAO {
                             resultSet.getInt("idFloor"),
                             resultSet.getInt("numberFloor"),
                             resultSet.getInt("idBuilding"),
-                            resultSet.getString("maxXSize"),
-                            resultSet.getString("MaxYSize")
+                            resultSet.getString("maxYSize"),
+                            resultSet.getString("MaxXSize")
                     );
                 }
             }
@@ -119,13 +121,35 @@ public class FloorDAOImpl implements FloorDAO {
                             resultSet.getInt("idFloor"),
                             resultSet.getInt("numberFloor"),
                             resultSet.getInt("idBuilding"),
-                            resultSet.getString("maxXSize"),
-                            resultSet.getString("MaxYSize")
+                            resultSet.getString("maxYSize"),
+                            resultSet.getString("MaxXSize")
                     );
                 }
                 return floor;
             }
         }
     }
+
+    @Override
+    public List<Floor> getAll() throws SQLException {
+        List<Floor> allFloors = new ArrayList<>();
+        try (Connection connection = DATASOURCE.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM floor")) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Floor floor = new Floor(
+                            resultSet.getInt("idFloor"),
+                            resultSet.getInt("numberFloor"),
+                            resultSet.getInt("idBuilding"),
+                            resultSet.getString("maxYSize"),
+                            resultSet.getString("maxXSize")
+                    );
+                    allFloors.add(floor);
+                }
+            }
+        }
+        return allFloors;
+    }
 }
+
 

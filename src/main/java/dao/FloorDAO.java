@@ -3,6 +3,7 @@ package dao;
 import entities.Floor;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public interface FloorDAO {
     Floor getByBuildingAndNumber(Integer idBuilding, Integer numberFloor) throws SQLException;
@@ -14,4 +15,6 @@ public interface FloorDAO {
     boolean removeById(Integer idFloor) throws SQLException;
 
     Floor getById(Integer idFloor) throws SQLException;
+
+    List<Floor> getAll() throws SQLException;
 }

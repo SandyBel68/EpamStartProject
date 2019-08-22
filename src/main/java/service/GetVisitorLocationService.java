@@ -6,11 +6,9 @@ import java.util.List;
 
 public class GetVisitorLocationService {
 
-
     public static Integer getVisitorLocation(List<Room> roomList, long tempX1, long tempY1) {
         return isContain(roomList, tempX1, tempY1);
     }
-
 
     public static Integer isContain(List<Room> roomList, long humanLocationX1, long humanLocationY1) {
         for (Room r : roomList) {

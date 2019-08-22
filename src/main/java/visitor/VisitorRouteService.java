@@ -32,6 +32,7 @@ public class VisitorRouteService {
     private static RoomDAO roomDAO = RoomDAOImpl.getInstance();
     private static List<Room> rooms;
     private static Floor tempFloor;
+    private static int plusMin = 0;
 
 
     public VisitorRouteService(Floor floor) {
@@ -62,13 +63,14 @@ public class VisitorRouteService {
     }
 
     public static void routeGenerator(int n, String name, Integer numberFloor, String address) {
+        LocalDateTime tempTimeStart = LocalDateTime.now();
+        LocalDateTime tempTimeFinish = tempTimeStart.plusMinutes(plusMin);
+        start.add(tempTimeStart);
+        finish.add(tempTimeFinish);
         for (int i = 0; i < n; i++) {
             int vector = (int) (Math.random() * 4);
             int temp = vector % 2;
-            LocalDateTime tempTimeStart = LocalDateTime.now();
-            LocalDateTime tempTimeFinish = tempTimeStart.plusMinutes(2);
-            start.add(tempTimeStart);
-            finish.add(tempTimeFinish);
+            plusMin += 3;
             switch (temp) {
                 case 0:
                     if (tempHumanLocationX1 + visitorStep < Long.parseLong(tempFloor.getMaxXSize()) && (vector == 2)) {
@@ -84,10 +86,12 @@ public class VisitorRouteService {
                         routX.add(tempHumanLocationX1);
                         routY.add(tempHumanLocationY1);
                     }
-                    tempTimeStart = tempTimeFinish;
+                    tempTimeStart = tempTimeStart.plusMinutes(plusMin);
+                    tempTimeFinish = tempTimeStart.plusMinutes(plusMin);
                     start.add(tempTimeStart);
-                    tempTimeFinish = tempTimeStart.plusMinutes(3);
                     finish.add(tempTimeFinish);
+                    System.out.println("time start: " + tempTimeStart);
+                    System.out.println("time finish: " + tempTimeFinish);
                     break;
 
                 case 1:
@@ -104,10 +108,12 @@ public class VisitorRouteService {
                         routX.add(tempHumanLocationX1);
                         routY.add(tempHumanLocationY1);
                     }
-                    tempTimeStart = tempTimeFinish;
+                    tempTimeStart = tempTimeStart.plusMinutes(plusMin);
+                    tempTimeFinish = tempTimeStart.plusMinutes(plusMin);
                     start.add(tempTimeStart);
-                    tempTimeFinish = tempTimeStart.plusMinutes(3);
                     finish.add(tempTimeFinish);
+                    System.out.println("time start: " + tempTimeStart);
+                    System.out.println("time finish: " + tempTimeFinish);
                     break;
             }
 

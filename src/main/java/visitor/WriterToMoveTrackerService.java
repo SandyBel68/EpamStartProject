@@ -15,6 +15,8 @@ import room.RoomDAOImpl;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Iterator;
+import java.util.List;
 
 
 import static visitor.GetVisitorLocationService.getVisitorLocation;
@@ -62,8 +64,10 @@ public class WriterToMoveTrackerService {
         Integer steps = 10;
         visitorRouteService.routeGenerator(steps, visitorName, numberFloor, address);
         myThread();
-        System.out.println(routX);
-        System.out.println(routY);
+//        System.out.println(routX);
+//        System.out.println(routY);
+//        System.out.println("start time  " + start);
+//        System.out.println("finish time   " + finish);
         for (int i = 0; i < steps; i++) {
 
             long tempX = VisitorRouteService.routX.get(i);
@@ -86,10 +90,11 @@ public class WriterToMoveTrackerService {
             System.out.println(visitor.getIdVisitor() + " " + roomId + " " + tempStart + " " + tempFinish);
             moveDAO.add(new MoveTracker(visitorId, roomId, tempStart, tempFinish));
         }
+        }
 //        routX.clear();
 //        routY.clear();
 //        start.clear();
 //        finish.clear();
 
-    }
 }
+

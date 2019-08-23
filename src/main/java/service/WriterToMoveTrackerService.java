@@ -48,6 +48,7 @@ public class WriterToMoveTrackerService {
 
     public static void addVisitorInMoveTracker(String visitorName, Integer numberFloor, String address) {
         try {
+
             Building building = buildingDAO.getByAddress(address);
             System.out.println(building);
             Integer buildingId = building.getIdBuilding();
@@ -63,8 +64,10 @@ public class WriterToMoveTrackerService {
             Integer steps = 10;
             visitorRouteService.routeGenerator(steps, visitorName, numberFloor, address);
             myThread();
-            System.out.println(routX);
-            System.out.println(routY);
+//        System.out.println(routX);
+//        System.out.println(routY);
+//        System.out.println("start time  " + start);
+//        System.out.println("finish time   " + finish);
             for (int i = 0; i < steps; i++) {
 
                 long tempX = VisitorRouteService.routX.get(i);
@@ -72,10 +75,10 @@ public class WriterToMoveTrackerService {
                 LocalDateTime tempStart = null;
                 LocalDateTime tempFinish = null;
 
-                if (start.get(i) != null) {
+                if(start.get(i) != null) {
                     tempStart = VisitorRouteService.start.get(i);
                 }
-                if (finish.get(i) != null) {
+                if(finish.get(i) != null) {
                     tempFinish = VisitorRouteService.finish.get(i);
                 }
 
@@ -87,10 +90,6 @@ public class WriterToMoveTrackerService {
                 System.out.println(visitor.getIdVisitor() + " " + roomId + " " + tempStart + " " + tempFinish);
                 moveDAO.add(new MoveTracker(visitorId, roomId, tempStart, tempFinish));
             }
-            routX.clear();
-            routY.clear();
-            start.clear();
-            finish.clear();
         }
         catch (SQLException e){
             System.err.println(e);

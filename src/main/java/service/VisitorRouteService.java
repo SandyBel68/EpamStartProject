@@ -17,8 +17,8 @@ import java.util.List;
 import static service.GetVisitorLocationService.getVisitorLocation;
 
 public class VisitorRouteService {
-    private static Long tempHumanLocationX1 = (long) (Math.random() * 600);
-    private static Long tempHumanLocationY1 = (long) (Math.random() * 600);
+    private static Long tempHumanLocationX1 = (long) (Math.random() * 650);
+    private static Long tempHumanLocationY1 = (long) (Math.random() * 300);
     public static MoveTrackerDAOImpl instance = MoveTrackerDAOImpl.getInstance();
     static List<Long> routX = new ArrayList<>();
     static List<Long> routY = new ArrayList<>();
@@ -36,14 +36,9 @@ public class VisitorRouteService {
         this.tempFloor = floor;
     }
 
-    public static void myThread() {
-        try {
+    public static void myThread() throws SQLException {
             Integer floorId = tempFloor.getIdFloor();
             rooms = roomDAO.getAllByFloor(floorId);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime temp = LocalDateTime.now();

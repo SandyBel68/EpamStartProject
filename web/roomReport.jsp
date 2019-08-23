@@ -14,12 +14,12 @@
         <%@include file="/css/bootstrap.min.css" %>
     </style>
 </head>
-<body class="p-3 mb-2 bg-info text-white">
+< class="p-3 mb-2 bg-info text-white">
 <div>
     <h2 class="text-center">Report for selected room </h2>
 
     <form action="visitorReport" method="get">
-        <table class="table table-striped">
+        <table class="table table-striped" >
             <tr>
                 <th>Room</th>
                 <th>Name </th>
@@ -42,5 +42,5 @@
     </form>
 
 </div>
-</body>
+</>
 </html>

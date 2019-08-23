@@ -3,6 +3,7 @@ package dao.impl;
 import common.DataSourceInit;
 import dao.RoomDAO;
 import entities.Room;
+import lombok.extern.log4j.Log4j2;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
@@ -15,6 +16,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+@Log4j2
 public class RoomDAOImpl implements RoomDAO {
     public static RoomDAOImpl instance;
     public final DataSource DATASOURCE;
@@ -28,8 +30,7 @@ public class RoomDAOImpl implements RoomDAO {
             try {
                 instance = new RoomDAOImpl(DataSourceInit.getMsInstance());
             } catch (IOException | PropertyVetoException e) {
-//TODO Logging!
-                System.err.println(e);
+                log.error(e.getMessage());
             }
         }
         return instance;

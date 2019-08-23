@@ -5,10 +5,12 @@ import dao.FloorDAO;
 import dao.impl.FloorDAOImpl;
 import entities.Building;
 import entities.Floor;
+import lombok.extern.log4j.Log4j2;
 
 import java.sql.SQLException;
 import java.util.List;
 
+@Log4j2
 public class FloorService {
     private static FloorService instance = null;
     private FloorDAO floorDAO;
@@ -25,27 +27,18 @@ public class FloorService {
         return instance;
     }
 
-    public List<Floor> getAllFloors() {
+    public List<Floor> getAllFloors() throws SQLException {
         List<Floor> FloorList = null;
-        try {
-            FloorList = floorDAO.getAll();
-        } catch (SQLException e) {
-            System.err.println(e);
-            //TODO logging
-        }
+        FloorList = floorDAO.getAll();
         return FloorList;
     }
 
-    public Integer addFloor(Integer numberFloor, String address, String maxXSize, String maxYSize){
+    public Integer addFloor (Integer numberFloor, String address, String maxXSize, String maxYSize) throws SQLException{
         Integer idFloor = null;
-        try {
-            Building building = buildingDAO.getByAddress(address);
-            Integer idBuilding = building.getIdBuilding();
-            Floor floor = new Floor(numberFloor, idBuilding, maxYSize, maxXSize);
-            idFloor = floorDAO.add(floor);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Building building = buildingDAO.getByAddress(address);
+        Integer idBuilding = building.getIdBuilding();
+        Floor floor = new Floor(numberFloor, idBuilding, maxYSize, maxXSize);
+        idFloor = floorDAO.add(floor);
         return idFloor;
     }
 }

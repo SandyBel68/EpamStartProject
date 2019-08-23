@@ -31,7 +31,6 @@ public class BuildingDAOImpl implements BuildingDAO {
             try {
                 instance = new BuildingDAOImpl(DataSourceInit.getMsInstance());
             } catch (IOException | PropertyVetoException e) {
-                System.err.println(e);
                 log.error(e.getMessage());
             }
         }

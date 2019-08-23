@@ -9,12 +9,14 @@ import dao.impl.RoomDAOImpl;
 import entities.Building;
 import entities.Floor;
 import entities.Room;
+import lombok.extern.log4j.Log4j2;
 
 import java.sql.SQLException;
 import java.util.List;
 
 import static service.GetVisitorLocationService.isContain;
 
+@Log4j2
 public class RoomService {
     private static RoomService instance = null;
     private RoomDAO roomDAO;
@@ -33,14 +35,9 @@ public class RoomService {
         return instance;
     }
 
-    public List<Room> getAllRooms() {
+    public List<Room> getAllRooms() throws SQLException {
         List<Room> roomList = null;
-        try {
-            roomList = roomDAO.getAll();
-        } catch (SQLException e) {
-            System.err.println(e);
-            //TODO logging
-        }
+        roomList = roomDAO.getAll();
         return roomList;
     }
 

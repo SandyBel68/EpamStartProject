@@ -12,9 +12,10 @@
     <title>RoomsReport</title>
     <style>
         <%@include file="/css/bootstrap.min.css" %>
+        body {background-color: lightblue;}
     </style>
 </head>
-< class="p-3 mb-2 bg-info text-white">
+< class="p-3 mb-2 text-black">
 <div>
     <h2 class="text-center">Report for selected room </h2>
 

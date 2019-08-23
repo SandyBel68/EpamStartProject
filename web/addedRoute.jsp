@@ -13,9 +13,13 @@
     <title>Route</title>
     <style>
         <%@include file="/css/bootstrap.min.css" %>
+        body {
+            background-color: lightblue;
+            text: black;
+        }
     </style>
 </head>
-<body class="p-3 mb-2 bg-info text-white">
+<body class="p-3 mb-2">
 <div>
     <h2 class="text-center">New route was added! </h2>
     <h3 class="text-center">Now get back to the start page to check the reports...</h3>

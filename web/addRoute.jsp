@@ -13,9 +13,10 @@
     <title>Route</title>
     <style>
         <%@include file="/css/bootstrap.min.css" %>
+        body {background-color: lightblue;}
     </style>
 </head>
-<body class="p-3 mb-2 bg-info text-white">
+<body class="p-3 mb-2 text-black">
 <div>
     <h2 class="text-center">Chose a visitor to start the route </h2>
 

@@ -1,17 +1,19 @@
 package visitorLocation;
 
+import dao.RoomDAO;
+import dao.impl.RoomDAOImpl;
+import entities.Room;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import room.Room;
-import room.RoomDAO;
-import room.RoomDAOImpl;
+
 
 
 import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static visitor.GetVisitorLocationService.getVisitorLocation;
+import static service.GetVisitorLocationService.getVisitorLocation;
+
 
 public class VisitorLocationTest {
     private static RoomDAO roomDAO;

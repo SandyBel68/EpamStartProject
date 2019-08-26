@@ -5,9 +5,12 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>EpamProject</groupId>
-    <artifactId>EpamProject</artifactId>
+    <groupId>EpamProject13august</groupId>
+    <artifactId>EpamProjectaugust</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <build>
         <plugins>
             <plugin>
@@ -19,7 +22,18 @@
                 </configuration>
             </plugin>
         </plugins>
+
+            <resources>
+                <resource>
+                    <directory>src/main/resources</directory>
+                    <targetPath>src/main/resources</targetPath>
+                    <includes>
+                        <include>log4j.properties</include>
+                    </includes>
+                </resource>
+            </resources>
     </build>
+
 
     <dependencies>
         <dependency>
@@ -93,6 +107,25 @@
             <version>0.9.5.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.11.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-web</artifactId>
+            <version>2.11.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.11.1</version>
+        </dependency>
+
     </dependencies>
+
 
 </project>

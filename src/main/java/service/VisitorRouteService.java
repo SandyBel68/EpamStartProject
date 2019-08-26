@@ -17,8 +17,8 @@ import java.util.List;
 import static service.GetVisitorLocationService.getVisitorLocation;
 
 public class VisitorRouteService {
-    private static Long tempHumanLocationX1 = (long) (Math.random() * 650);
-    private static Long tempHumanLocationY1 = (long) (Math.random() * 300);
+    private static Long tempHumanLocationX1;
+    private static Long tempHumanLocationY1;
     public static MoveTrackerDAOImpl instance = MoveTrackerDAOImpl.getInstance();
     static List<Long> routX = new ArrayList<>();
     static List<Long> routY = new ArrayList<>();
@@ -56,6 +56,8 @@ public class VisitorRouteService {
     }
 
     public static void routeGenerator(int n, String name, Integer numberFloor, String address) {
+        tempHumanLocationX1 = (long) (Math.random() * Long.parseLong(tempFloor.getMaxXSize())/2);
+        tempHumanLocationY1 = (long) (Math.random() * Long.parseLong(tempFloor.getMaxYSize())/2);
         LocalDateTime tempTimeStart = LocalDateTime.now();
         LocalDateTime tempTimeFinish = tempTimeStart.plusMinutes(plusMin);
         routY.clear();

@@ -1,8 +1,6 @@
 package service;
 
-import dao.FloorDAO;
 import dao.RoomDAO;
-import dao.impl.FloorDAOImpl;
 import dao.impl.MoveTrackerDAOImpl;
 import dao.impl.RoomDAOImpl;
 import entities.Floor;
@@ -24,7 +22,6 @@ public class VisitorRouteService {
     static List<Long> routY = new ArrayList<>();
     static List<LocalDateTime> start = new ArrayList<>();
     static List<LocalDateTime> finish = new ArrayList<>();
-    private static FloorDAO floorDAO = FloorDAOImpl.getInstance();
     private static int visitorStep = 100 + (int) (Math.random() * 50);
     private static RoomDAO roomDAO = RoomDAOImpl.getInstance();
     private static List<Room> rooms;

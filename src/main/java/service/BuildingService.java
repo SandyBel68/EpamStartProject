@@ -3,10 +3,12 @@ package service;
 import dao.BuildingDAO;
 import dao.impl.BuildingDAOImpl;
 import entities.Building;
+import lombok.extern.log4j.Log4j2;
 
 import java.sql.SQLException;
 import java.util.List;
 
+@Log4j2
 public class BuildingService {
     private static BuildingService instance = null;
     private BuildingDAO buildingDAO;
@@ -22,14 +24,9 @@ public class BuildingService {
         return instance;
     }
 
-    public List<Building> getAllBuildings() {
+    public List<Building> getAllBuildings() throws SQLException {
         List<Building> buildingList = null;
-        try {
-            buildingList = buildingDAO.getAll();
-        } catch (SQLException e) {
-            System.err.println(e);
-            //TODO logging
-        }
+        buildingList = buildingDAO.getAll();
         return buildingList;
     }
 }

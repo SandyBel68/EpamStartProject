@@ -13,25 +13,24 @@
     <title>Route</title>
     <style>
         <%@include file="/css/bootstrap.min.css" %>
+        body {background-color: lightblue;}
     </style>
 </head>
-<body class="p-3 mb-2 bg-info text-white">
+<body class="p-3 mb-2 text-black">
 <div>
     <h2 class="text-center">Chose a visitor to start the route </h2>
 
-    <tr>
-        <th>Visitor names</th>
-    </tr>
-    </br>
-
     <form action="/addRoute" method="post">
+        <b> Visitor name </b>
         <select name="visitorName">
             <c:forEach var="allVisitors" items="${allVisitors}">
                 <option value='${allVisitors.visitorName}'>${allVisitors.visitorName}</option>
             </c:forEach>
+
         </select>
         <input type="submit" value="Submit">
     </form>
+    <p> </p>
 
     <form action="/" method="post">
         <input class="btn btn-success btn-lg btn-block" type="submit" value="Go back to start page"/>

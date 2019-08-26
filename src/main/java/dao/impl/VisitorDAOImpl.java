@@ -3,14 +3,20 @@ package dao.impl;
 import common.DataSourceInit;
 import dao.VisitorDAO;
 import entities.Visitor;
+import lombok.extern.log4j.Log4j2;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+@Log4j2
 public class VisitorDAOImpl implements VisitorDAO {
     public static VisitorDAOImpl instance;
     public final DataSource DATASOURCE;
@@ -24,8 +30,7 @@ public class VisitorDAOImpl implements VisitorDAO {
             try {
                 instance = new VisitorDAOImpl(DataSourceInit.getMsInstance());
             } catch (IOException | PropertyVetoException e) {
-                System.err.println(e);
-//TODO Logging!
+                log.error(e.getMessage());
             }
         }
         return instance;

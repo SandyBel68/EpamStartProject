@@ -13,12 +13,17 @@
     <title>Route</title>
     <style>
         <%@include file="/css/bootstrap.min.css" %>
+        body {
+            background-color: lightblue;
+            text: black;
+        }
     </style>
 </head>
-<body class="p-3 mb-2 bg-info text-white">
+<body class="p-3 mb-2">
 <div>
     <h2 class="text-center">New route was added! </h2>
     <h3 class="text-center">Now get back to the start page to check the reports...</h3>
+    <p style="text-align:center;"><img src="/img/b1_f1_raw.jpg" alt="map"></p>
     <form action="/" method="post">
         <input class="btn btn-success btn-lg btn-block" type="submit" value="Go back to start page"/>
     </form>

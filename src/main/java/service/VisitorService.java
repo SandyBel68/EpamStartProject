@@ -22,26 +22,16 @@ public class VisitorService {
         return instance;
     }
 
-    public List<Visitor> getAllVisitors() {
+    public List<Visitor> getAllVisitors() throws SQLException {
         List<Visitor> visitorList = null;
-        try {
-            visitorList = visitorDAO.getAll();
-        } catch (SQLException e) {
-            System.err.println(e);
-            //TODO logging
-        }
+        visitorList = visitorDAO.getAll();
         return visitorList;
     }
 
-    public Integer addVisitor(String visitorName){
-        Integer visitorId  = null;
+    public Integer addVisitor(String visitorName) throws SQLException {
+        Integer visitorId = null;
         Visitor visitorToAdd = new Visitor(visitorName);
-        try {
-            visitorId = visitorDAO.add(visitorToAdd);
-        } catch (SQLException e) {
-            System.err.println(e);
-            //TODO logging
-        }
+        visitorId = visitorDAO.add(visitorToAdd);
         return visitorId;
     }
 }

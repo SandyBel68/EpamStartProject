@@ -12,9 +12,11 @@
     <title>Location app</title>
     <style>
         <%@include file="/css/bootstrap.min.css" %>
+        body {background-color: lightblue;}
     </style>
 </head>
-<body class="p-3 mb-2 bg-info text-white">
+<body>
+<body class="p-3 mb-2 ">
 <%---------------------------content--%>
 <div class="container">
     <div>

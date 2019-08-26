@@ -29,16 +29,15 @@ CREATE TABLE `floor` (
   `maxYsize` varchar(45) DEFAULT NULL,
   `maxXsize` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idFloor`),
-  KEY `idBuilding_idx` (`idbuilding`),
   UNIQUE KEY `numberFloor_UNIQUE` (`numberFloor`),
+  KEY `idBuilding_idx` (`idbuilding`),
   CONSTRAINT `idBuilding` FOREIGN KEY (`idbuilding`) REFERENCES `building` (`idbuilding`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `floor`
 --
-
 LOCK TABLES `floor` WRITE;
 /*!40000 ALTER TABLE `floor` DISABLE KEYS */;
 /*!40000 ALTER TABLE `floor` ENABLE KEYS */;
@@ -53,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-15 16:56:03
+-- Dump completed on 2019-08-22 15:43:05

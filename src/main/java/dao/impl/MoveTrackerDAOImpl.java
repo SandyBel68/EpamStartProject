@@ -3,14 +3,21 @@ package dao.impl;
 import common.DataSourceInit;
 import dao.MoveTrackerDAO;
 import entities.MoveTracker;
+import lombok.extern.log4j.Log4j2;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+@Log4j2
 public class MoveTrackerDAOImpl implements MoveTrackerDAO {
     public static MoveTrackerDAOImpl instance;
     public final DataSource DATASOURCE;
@@ -24,8 +31,7 @@ public class MoveTrackerDAOImpl implements MoveTrackerDAO {
             try {
                 instance = new MoveTrackerDAOImpl(DataSourceInit.getMsInstance());
             } catch (IOException | PropertyVetoException e) {
-//TODO Logging!
-                System.err.println(e);
+                log.error(e.getMessage());
             }
         }
         return instance;

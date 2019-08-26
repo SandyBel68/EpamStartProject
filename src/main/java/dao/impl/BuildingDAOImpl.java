@@ -8,7 +8,11 @@ import lombok.extern.log4j.Log4j2;
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +31,6 @@ public class BuildingDAOImpl implements BuildingDAO {
             try {
                 instance = new BuildingDAOImpl(DataSourceInit.getMsInstance());
             } catch (IOException | PropertyVetoException e) {
-                System.err.println(e);
                 log.error(e.getMessage());
             }
         }
